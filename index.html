@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JT Auto — Dovoz prověřených vozů z Německa | Chrudim</title>
+  <meta name="description" content="Dovoz ojetých vozů z Německa s ověřenou historií. Žádné stočené kilometry, individuální výběr na přání. Jan Tomášek, Chrudim.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="JT Auto — Dovoz prověřených vozů z Německa">
+  <meta property="og:description" content="Férový dovoz ojetých aut z Německa. Prověřená historie, bez skrytých vad. Chrudim.">
+  <meta property="og:image" content="assets/images/hero-1.jpg">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚗</text></svg>">
+
+  <!-- Preload critical fonts -->
+  <link rel="preload" href="assets/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AutoDealer",
+    "name": "JT Auto",
+    "url": "https://jt-auto.cz",
+    "telephone": "+420776210220",
+    "email": "info@jt-auto.cz",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Václavská 1114",
+      "addressLocality": "Chrudim",
+      "postalCode": "537 01",
+      "addressCountry": "CZ"
+    },
+    "description": "Dovoz prověřených ojetých vozů z Německa. Férové jednání, transparentní historie vozidel.",
+    "priceRange": "$$"
+  }
+  </script>
+</head>
+<body class="has-grain">
+  <a href="#main" class="skip-link">Přeskočit na obsah</a>
+
+  <!-- NAV -->
+  <header class="site-header">
+    <div class="scroll-progress" aria-hidden="true"></div>
+    <nav class="nav container">
+      <a href="/" class="nav__logo" aria-label="JT Auto — domovská stránka">
+        <img src="assets/images/logo.png" alt="JT Auto" width="120" height="93">
+      </a>
+      <button class="nav__toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
+        <span class="hamburger">
+          <span class="hamburger__line"></span>
+          <span class="hamburger__line"></span>
+          <span class="hamburger__line"></span>
+        </span>
+      </button>
+      <ul class="nav__menu" id="nav-menu" role="list">
+        <li><a href="/" class="nav__link active">Domů</a></li>
+        <li><a href="nabidka.html" class="nav__link">Nabídka vozidel</a></li>
+        <li><a href="kontakt.html" class="nav__link">Kontakt</a></li>
+        <li><a href="tel:+420776210220" class="btn btn--primary btn--sm btn--magnetic">Zavolat</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- HERO — split layout with background image -->
+    <section id="hero" class="hero">
+      <div class="hero__bg-img">
+        <img src="assets/images/hero-1.jpg" alt="" width="1920" height="612" fetchpriority="high">
+      </div>
+      <div class="hero__bg-gradient"></div>
+      <div class="container grid grid--60-40">
+        <div class="hero__content">
+          <span class="hero__accent" data-reveal></span>
+          <h1 data-reveal data-delay="100">Prověřené vozy z&nbsp;Německa bez&nbsp;starostí</h1>
+          <p data-reveal data-delay="200">Dovážíme pečlivě vybrané ojeté vozy s&nbsp;transparentní historií. Žádné stočené kilometry, žádné skryté vady — jen férový přístup a&nbsp;auta, která bychom sami rádi řídili.</p>
+          <div class="hero__actions" data-reveal data-delay="300">
+            <a href="nabidka.html" class="btn btn--primary btn--lg btn--magnetic">Prohlédnout nabídku</a>
+            <a href="#jak-to-funguje" class="btn btn--secondary btn--lg">Jak funguje dovoz</a>
+          </div>
+        </div>
+        <div class="hero__image parallax-img" data-reveal="right" data-delay="200">
+          <img src="assets/images/vehicle-790-mazda-cx5.jpg" alt="Mazda CX-5 Sports-Line z aktuální nabídky JT Auto" width="800" height="533">
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS — Jak funguje dovoz -->
+    <section id="jak-to-funguje" class="bg-alt divider-wave" style="--divider-bg: var(--color-surface)">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <span class="section-label">Dovoz na klíč</span>
+          <h2>Jak funguje dovoz na objednávku</h2>
+          <p>Od výběru po předání za 4 jednoduché kroky. O&nbsp;vše se postaráme — vy si jen vyberete.</p>
+        </div>
+        <div class="grid grid--4 process-steps">
+          <div class="process-step stagger-item card--lift">
+            <span class="process-step__number" aria-hidden="true">1</span>
+            <h3>Zadáte požadavky</h3>
+            <p>Značka, model, rozpočet, výbava — pomůžeme vám upřesnit, co přesně hledáte.</p>
+          </div>
+          <div class="process-step stagger-item card--lift">
+            <span class="process-step__number" aria-hidden="true">2</span>
+            <h3>Vyhledáme vůz</h3>
+            <p>Prověříme historii, technický stav i&nbsp;dokumentaci. Pošleme vám fotky a&nbsp;detailní report.</p>
+          </div>
+          <div class="process-step stagger-item card--lift">
+            <span class="process-step__number" aria-hidden="true">3</span>
+            <h3>Dovezeme a&nbsp;přihlásíme</h3>
+            <p>Zajistíme převoz, přepis, STK i&nbsp;pojištění. Vše zařídíme za vás.</p>
+          </div>
+          <div class="process-step stagger-item card--lift">
+            <span class="process-step__number" aria-hidden="true">4</span>
+            <h3>Předání vozu</h3>
+            <p>Vyzvednete si ho u&nbsp;nás v&nbsp;Chrudimi, nebo vám ho doručíme až domů.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY US — Trust signals -->
+    <section id="proc-jt-auto">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <span class="section-label">Proč zvolit nás</span>
+          <h2>Férový dovoz s&nbsp;čistým svědomím</h2>
+          <p>Nejsme anonymní bazar. Jsem Jan Tomášek a&nbsp;za každým vozem si stojím osobně.</p>
+        </div>
+        <div class="grid grid--3">
+          <div class="trust-card stagger-item card--lift">
+            <div class="trust-card__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <h3>Ověřená historie každého vozu</h3>
+              <p>Kompletní servisní historie, prověření CarVertical, žádná skrytá minulost. Co říkáme, to platí.</p>
+            </div>
+          </div>
+          <div class="trust-card stagger-item card--lift">
+            <div class="trust-card__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div>
+              <h3>Osobní přístup, ne sériová linka</h3>
+              <p>Každý zákazník je pro nás partner. Poradíme, vysvětlíme, pomůžeme s&nbsp;výběrem i&nbsp;financováním.</p>
+            </div>
+          </div>
+          <div class="trust-card stagger-item card--lift">
+            <div class="trust-card__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+            </div>
+            <div>
+              <h3>Recenze, které mluví za nás</h3>
+              <p>Přes 780 úspěšně prodaných vozů a&nbsp;desítky spokojených zákazníků. Přesvědčte se sami.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED VEHICLES -->
+    <section id="nabidka" class="bg-alt divider-diagonal" style="--divider-bg: var(--color-dark)">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <span class="section-label">Aktuální nabídka</span>
+          <h2>Vozy skladem — připravené k&nbsp;odběru</h2>
+          <p>Prověřené vozy z&nbsp;Německa, které si můžete prohlédnout a&nbsp;odvézt hned.</p>
+        </div>
+        <div class="grid grid--3">
+          <!-- Vehicle 790 -->
+          <article class="vehicle-card card--lift stagger-item">
+            <div class="vehicle-card__img img-overlay">
+              <img src="assets/images/vehicle-790-mazda-cx5.jpg" alt="Mazda CX-5 2.0i Sports-Line 2018" width="800" height="533" loading="lazy">
+              <span class="vehicle-card__badge">Skladem</span>
+            </div>
+            <div class="vehicle-card__body">
+              <h3 class="vehicle-card__title">Mazda CX-5 2.0i Sports-Line</h3>
+              <div class="vehicle-card__price">459 000 Kč</div>
+              <div class="vehicle-card__specs">
+                <span class="vehicle-card__spec">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  2018
+                </span>
+                <span class="vehicle-card__spec">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+                  115 000 km
+                </span>
+                <span class="vehicle-card__spec">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                  121 kW
+                </span>
+                <span class="vehicle-card__spec">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+                  Benzín
+                </span>
+              </div>
+              <div class="vehicle-card__actions">
+                <a href="nabidka.html#v790" class="btn btn--primary btn--sm" style="width:100%">Zobrazit detail</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Vehicle 785 -->
+          <article class="vehicle-card card--lift stagger-item">
+            <div class="vehicle-card__img img-overlay">
+              <img src="assets/images/vehicle-785-mazda-cx5.jpg" alt="Mazda CX-5 2.0i Kangei 2020" width="800" height="533" loading="lazy">
+              <span class="vehicle-card__badge">Skladem</span>
+            </div>
+            <div class="vehicle-card__body">
+              <h3 class="vehicle-card__title">Mazda CX-5 2.0i Kangei</h3>
+              <div class="vehicle-card__price">485 000 Kč</div>
+              <div class="vehicle-card__specs">
+                <span class="vehicle-card__spec">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  2020
+                </span>
+                <span class="vehicle-card__spec">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+                  117 000 km
+                </span>
+                <span class="vehicle-card__spec">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                  121 kW
+                </span>
+                <span class="vehicle-card__spec">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+                  Benzín
+                </span>
+              </div>
+              <div class="vehicle-card__actions">
+                <a href="nabidka.html#v785" class="btn btn--primary btn--sm" style="width:100%">Zobrazit detail</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Vehicle 782 -->
+          <article class="vehicle-card card--lift stagger-item">
+            <div class="vehicle-card__img img-overlay">
+              <img src="assets/images/vehicle-782-skoda-fabia.jpg" alt="Škoda Fabia 1.2 TSI Joy 2016" width="800" height="533" loading="lazy">
+              <span class="vehicle-card__badge">Skladem</span>
+            </div>
+            <div class="vehicle-card__body">
+              <h3 class="vehicle-card__title">Škoda Fabia 1.2 TSI Joy Kombi</h3>
+              <div class="vehicle-card__price">219 000 Kč</div>
+              <div class="vehicle-card__specs">
+                <span class="vehicle-card__spec">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  2016
+                </span>
+                <span class="vehicle-card__spec">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+                  100 000 km
+                </span>
+                <span class="vehicle-card__spec">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                  66 kW
+                </span>
+                <span class="vehicle-card__spec">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+                  Benzín
+                </span>
+              </div>
+              <div class="vehicle-card__actions">
+                <a href="nabidka.html#v782" class="btn btn--primary btn--sm" style="width:100%">Zobrazit detail</a>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="text-center mt-xl" data-reveal>
+          <a href="nabidka.html" class="btn btn--secondary btn--lg btn--magnetic">Zobrazit celou nabídku</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section id="cisla" class="stats">
+      <div class="container grid grid--4">
+        <div class="stat stagger-item">
+          <strong class="stat__number counter" data-target="790" data-suffix="+">790+</strong>
+          <span class="stat__label">Prodaných vozidel</span>
+        </div>
+        <div class="stat stagger-item">
+          <strong class="stat__number counter" data-target="10" data-suffix="+">10+</strong>
+          <span class="stat__label">Let na trhu</span>
+        </div>
+        <div class="stat stagger-item">
+          <strong class="stat__number counter" data-target="100" data-suffix="%">100%</strong>
+          <span class="stat__label">Prověřená historie</span>
+        </div>
+        <div class="stat stagger-item">
+          <strong class="stat__number" style="font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem);">Osobní jednání</strong>
+          <span class="stat__label">S&nbsp;každým zákazníkem</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="dovoz-na-prani" class="cta divider-wave" style="--divider-bg: var(--color-surface)">
+      <div class="container text-center">
+        <h2 data-reveal>Hledáte konkrétní vůz?</h2>
+        <p data-reveal data-delay="100">Řekněte nám, co potřebujete — značku, model, rozpočet. Najdeme a&nbsp;dovezeme přesně to auto, které hledáte. Konzultace je zdarma.</p>
+        <a href="kontakt.html" class="btn btn--primary btn--lg btn--magnetic" data-reveal data-delay="200">Poptat dovoz na přání</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container grid grid--4">
+      <div class="site-footer__brand">
+        <a href="/" class="site-footer__logo"><img src="assets/images/logo.png" alt="JT Auto" width="120" height="93" loading="lazy"></a>
+        <p>Férový dovoz ojetých vozů z&nbsp;Německa. Jan Tomášek, Chrudim.</p>
+      </div>
+      <nav aria-label="Navigace">
+        <h4>Navigace</h4>
+        <ul role="list">
+          <li><a href="/">Domů</a></li>
+          <li><a href="nabidka.html">Nabídka vozidel</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Služby">
+        <h4>Služby</h4>
+        <ul role="list">
+          <li><a href="#jak-to-funguje">Dovoz na objednávku</a></li>
+          <li><a href="nabidka.html">Vozy skladem</a></li>
+          <li><a href="kontakt.html">Konzultace zdarma</a></li>
+        </ul>
+      </nav>
+      <div class="site-footer__contact">
+        <h4>Kontakt</h4>
+        <p><strong>Jan Tomášek</strong></p>
+        <p>Václavská 1114<br>Chrudim 2, 537 01</p>
+        <p><a href="tel:+420776210220">+420 776 210 220</a></p>
+        <p><a href="mailto:info@jt-auto.cz">info@jt-auto.cz</a></p>
+        <p class="text-sm mt-sm">IČ: 74412183 | DIČ: CZ7906223127</p>
+      </div>
+    </div>
+    <div class="site-footer__bottom container">
+      <p>&copy; 2026 JT Auto. Všechna práva vyhrazena.</p>
+      <div class="site-footer__social"></div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
