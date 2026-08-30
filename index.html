@@ -70,24 +70,24 @@
 
   <main id="main">
 
-    <!-- HERO — split layout with background image -->
+    <!-- HERO — fullscreen with background image -->
     <section id="hero" class="hero">
-      <div class="hero__bg-img">
+      <div class="hero__bg">
         <img src="assets/images/hero-1.jpg" alt="" width="1920" height="612" fetchpriority="high">
       </div>
-      <div class="hero__bg-gradient"></div>
-      <div class="container grid grid--60-40">
+      <div class="hero__overlay"></div>
+      <div class="container">
         <div class="hero__content">
           <span class="hero__accent" data-reveal></span>
           <h1 data-reveal data-delay="100">Prověřené vozy z&nbsp;Německa bez&nbsp;starostí</h1>
           <p data-reveal data-delay="200">Dovážíme pečlivě vybrané ojeté vozy s&nbsp;transparentní historií. Žádné stočené kilometry, žádné skryté vady — jen férový přístup a&nbsp;auta, která bychom sami rádi řídili.</p>
           <div class="hero__actions" data-reveal data-delay="300">
-            <a href="nabidka.html" class="btn btn--primary btn--lg btn--magnetic">Prohlédnout nabídku</a>
-            <a href="#jak-to-funguje" class="btn btn--secondary btn--lg">Jak funguje dovoz</a>
+            <a href="nabidka.html" class="btn btn--white btn--lg btn--magnetic">Prohlédnout nabídku</a>
+            <a href="#jak-to-funguje" class="btn btn--ghost-white btn--lg">Jak funguje dovoz</a>
           </div>
-        </div>
-        <div class="hero__image parallax-img" data-reveal="right" data-delay="200">
-          <img src="assets/images/vehicle-790-mazda-cx5.jpg" alt="Mazda CX-5 Sports-Line z aktuální nabídky JT Auto" width="800" height="533">
+          <div class="hero__badge" data-reveal data-delay="400">
+            <strong>790+</strong>&nbsp;úspěšně prodaných vozů&ensp;·&ensp;<strong>10+</strong>&nbsp;let na trhu
+          </div>
         </div>
       </div>
     </section>
@@ -202,7 +202,7 @@
                 </span>
               </div>
               <div class="vehicle-card__actions">
-                <a href="nabidka.html#v790" class="btn btn--primary btn--sm" style="width:100%">Zobrazit detail</a>
+                <a href="nabidka.html#v790" class="btn btn--primary btn--sm btn--block">Zobrazit detail</a>
               </div>
             </div>
           </article>
@@ -235,7 +235,7 @@
                 </span>
               </div>
               <div class="vehicle-card__actions">
-                <a href="nabidka.html#v785" class="btn btn--primary btn--sm" style="width:100%">Zobrazit detail</a>
+                <a href="nabidka.html#v785" class="btn btn--primary btn--sm btn--block">Zobrazit detail</a>
               </div>
             </div>
           </article>
@@ -268,7 +268,7 @@
                 </span>
               </div>
               <div class="vehicle-card__actions">
-                <a href="nabidka.html#v782" class="btn btn--primary btn--sm" style="width:100%">Zobrazit detail</a>
+                <a href="nabidka.html#v782" class="btn btn--primary btn--sm btn--block">Zobrazit detail</a>
               </div>
             </div>
           </article>
@@ -294,8 +294,8 @@
           <strong class="stat__number counter" data-target="100" data-suffix="%">100%</strong>
           <span class="stat__label">Prověřená historie</span>
         </div>
-        <div class="stat stagger-item">
-          <strong class="stat__number" style="font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem);">Osobní jednání</strong>
+        <div class="stat stat--text stagger-item">
+          <strong class="stat__number">Osobní jednání</strong>
           <span class="stat__label">S&nbsp;každým zákazníkem</span>
         </div>
       </div>
@@ -306,7 +306,7 @@
       <div class="container text-center">
         <h2 data-reveal>Hledáte konkrétní vůz?</h2>
         <p data-reveal data-delay="100">Řekněte nám, co potřebujete — značku, model, rozpočet. Najdeme a&nbsp;dovezeme přesně to auto, které hledáte. Konzultace je zdarma.</p>
-        <a href="kontakt.html" class="btn btn--primary btn--lg btn--magnetic" data-reveal data-delay="200">Poptat dovoz na přání</a>
+        <a href="kontakt.html" class="btn btn--white btn--lg btn--magnetic" data-reveal data-delay="200">Poptat dovoz na přání</a>
       </div>
     </section>
 
