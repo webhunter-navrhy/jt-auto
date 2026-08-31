@@ -11,6 +11,11 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://jt-auto.cz/archiv.html</loc>
+    <lastmod>2026-08-31</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://jt-auto.cz/kontakt.html</loc>
     <lastmod>2026-08-30</lastmod>
     <priority>0.8</priority>
