@@ -196,10 +196,15 @@
   .nav__toggle[aria-expanded="true"] .hamburger__line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
   @media (max-width: 768px) {
+    .site-header {
+      background: #fff;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
     .nav__toggle { display: block; }
     .nav__menu {
       position: fixed; inset: 0;
-      background: var(--color-surface);
+      background: #fff;
       padding: 6rem var(--space-xl) var(--space-xl);
       flex-direction: column; align-items: center;
       gap: var(--space-xl);
