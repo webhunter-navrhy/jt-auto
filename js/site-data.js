@@ -1,65 +1,17 @@
-/* JT Auto — Dynamic content loader v2
-   Reads admin data from localStorage + IndexedDB, applies to pages */
+/* JT Auto — Dynamic content loader v3
+   Fetches data from data/site-data.json, applies to pages */
 (async function() {
   'use strict';
 
-  const DB_NAME = 'jt_auto_db';
-  const DB_VERSION = 1;
-  const IMG_STORE = 'images';
-
-  function getData(k) { try { const d = localStorage.getItem(k); return d ? JSON.parse(d) : null; } catch { return null; } }
-  function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
-
-  /* ===== IndexedDB ===== */
-  let db = null;
-  function openDB() {
-    return new Promise((resolve) => {
-      if (db) return resolve(db);
-      const req = indexedDB.open(DB_NAME, DB_VERSION);
-      req.onupgradeneeded = (e) => {
-        const d = e.target.result;
-        if (!d.objectStoreNames.contains(IMG_STORE)) d.createObjectStore(IMG_STORE, { keyPath: 'id' });
-      };
-      req.onsuccess = (e) => { db = e.target.result; resolve(db); };
-      req.onerror = () => resolve(null);
-    });
-  }
-
-  async function getImage(id) {
-    const d = await openDB();
-    if (!d) return null;
-    return new Promise((resolve) => {
-      const tx = d.transaction(IMG_STORE, 'readonly');
-      const req = tx.objectStore(IMG_STORE).get(id);
-      req.onsuccess = () => resolve(req.result?.blob || null);
-      req.onerror = () => resolve(null);
-    });
-  }
-
-  function blobUrl(blob) { return blob ? URL.createObjectURL(blob) : ''; }
-
-  async function getVehicleImgSrc(v) {
-    if (v.imageType === 'db') {
-      const blob = await getImage(v.id + '_main');
-      return blob ? blobUrl(blob) : '';
-    }
-    return v.image || '';
-  }
-
-  async function getVehicleGallerySrcs(v) {
-    if (v.imageType === 'db') {
-      const count = v.galleryCount || 0;
-      const srcs = [];
-      for (let i = 0; i < count; i++) {
-        const blob = await getImage(v.id + '_gallery_' + i);
-        if (blob) srcs.push(blobUrl(blob));
-      }
-      return srcs;
-    }
-    return v.gallery || [];
-  }
+  let data;
+  try {
+    const resp = await fetch('data/site-data.json?t=' + Date.now());
+    if (!resp.ok) return;
+    data = await resp.json();
+  } catch { return; }
 
   const page = location.pathname.split('/').pop() || 'index.html';
+  function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 
   /* SVG icons */
   const icons = {
@@ -74,7 +26,7 @@
 
   /* ===== HERO (index.html) ===== */
   if (page === 'index.html' || page === '') {
-    const hero = getData('jt_hero');
+    const hero = data.hero;
     if (hero) {
       const h1 = document.querySelector('.hero__content h1');
       const p = document.querySelector('.hero__content > p');
@@ -88,7 +40,7 @@
       if (badge && hero.badge) badge.innerHTML = hero.badge;
     }
 
-    const stats = getData('jt_stats');
+    const stats = data.stats;
     if (stats) {
       document.querySelectorAll('.counter').forEach(c => {
         if (c.dataset.target === '790' && stats.vehicles) { c.dataset.target = stats.vehicles; c.textContent = stats.vehicles + '+'; }
@@ -98,7 +50,7 @@
   }
 
   /* ===== VEHICLES ===== */
-  const vehicles = getData('jt_vehicles');
+  const vehicles = data.vehicles;
   if (vehicles) {
     const inStock = vehicles.filter(v => v.status === 'Skladem' || v.status === 'Rezervováno');
     const soldVehicles = vehicles.filter(v => v.status === 'Prodáno');
@@ -110,11 +62,10 @@
         const featured = inStock.slice(0, 3);
         let html = '';
         for (const v of featured) {
-          const imgSrc = await getVehicleImgSrc(v);
           html += `
             <article class="vehicle-card card--lift stagger-item">
               <div class="vehicle-card__img img-overlay">
-                ${imgSrc ? `<img src="${esc(imgSrc)}" alt="${esc(v.title)}" width="800" height="533" loading="lazy">` : ''}
+                ${v.image ? `<img src="${esc(v.image)}" alt="${esc(v.title)}" width="800" height="533" loading="lazy">` : ''}
                 <span class="vehicle-card__badge">${esc(v.status)}</span>
               </div>
               <div class="vehicle-card__body">
@@ -142,21 +93,18 @@
         container.querySelectorAll('.vehicle-card--detail').forEach(el => el.remove());
 
         for (const v of inStock) {
-          const imgSrc = await getVehicleImgSrc(v);
-          const gallerySrcs = await getVehicleGallerySrcs(v);
-
           const article = document.createElement('article');
           article.id = v.id;
           article.className = 'vehicle-card vehicle-card--detail card--lift';
           article.setAttribute('data-reveal', '');
 
-          const galleryHtml = gallerySrcs.map((src, i) =>
+          const galleryHtml = (v.gallery || []).map((src, i) =>
             `<a href="${esc(src)}" data-lightbox class="stagger-item"><img src="${esc(src)}" alt="${esc(v.title)} detail ${i+1}" loading="lazy"></a>`
           ).join('');
 
           article.innerHTML = `
             <div class="vehicle-card__img img-overlay">
-              ${imgSrc ? `<img src="${esc(imgSrc)}" alt="${esc(v.title)}" width="800" height="533" loading="lazy">` : ''}
+              ${v.image ? `<img src="${esc(v.image)}" alt="${esc(v.title)}" width="800" height="533" loading="lazy">` : ''}
               <span class="vehicle-card__badge">${esc(v.status)}</span>
             </div>
             <div class="vehicle-card__body">
@@ -182,7 +130,6 @@
           else container.appendChild(article);
         }
 
-        // Re-init lightbox
         reinitLightbox();
       }
     }
@@ -193,7 +140,6 @@
       if (archivGrid) {
         const fragment = document.createDocumentFragment();
         for (const v of soldVehicles) {
-          const imgSrc = await getVehicleImgSrc(v);
           const card = document.createElement('div');
           card.className = 'archive-card';
           card.dataset.brand = v.title.split(' ')[0] || '';
@@ -203,7 +149,7 @@
 
           card.innerHTML = `
             <div class="archive-card__img">
-              ${imgSrc ? `<img src="${esc(imgSrc)}" alt="${esc(v.title)}" loading="lazy">` : '<div style="width:100%;height:100%;background:#f1f5f9"></div>'}
+              ${v.image ? `<img src="${esc(v.image)}" alt="${esc(v.title)}" loading="lazy">` : '<div style="width:100%;height:100%;background:#f1f5f9"></div>'}
               <span class="vehicle-card__badge vehicle-card__badge--sold">Prodáno</span>
               <span class="archive-card__num">#${v.id.replace('v','')}</span>
             </div>
@@ -225,7 +171,7 @@
   }
 
   /* ===== CONTACT ===== */
-  const contact = getData('jt_contact');
+  const contact = data.contact;
   if (contact) {
     const fc = document.querySelector('.site-footer__contact');
     if (fc) {

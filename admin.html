@@ -14,6 +14,14 @@
 </head>
 <body>
 
+  <!-- LOADING OVERLAY -->
+  <div id="admin-loading" class="admin-loading">
+    <div class="admin-loading__inner">
+      <div class="admin-loading__spinner"></div>
+      <p>Ukládám na web...</p>
+    </div>
+  </div>
+
   <!-- LOGIN -->
   <div id="login-screen" class="login-screen">
     <div class="login-box">
@@ -29,6 +37,25 @@
         </div>
         <p id="login-error" class="login-error">Nesprávné heslo.</p>
         <button type="submit" class="admin-btn admin-btn--primary" style="width:100%">Přihlásit se</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOKEN SETUP -->
+  <div id="token-setup" class="login-screen" style="display:none">
+    <div class="login-box">
+      <div class="login-box__logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#1a3a6b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <h1>Propojení s webem</h1>
+        <p>Zadejte GitHub token pro publikování změn na web</p>
+      </div>
+      <form id="token-form">
+        <div class="form-group">
+          <label for="gh-token-input">GitHub Token</label>
+          <input type="password" id="gh-token-input" placeholder="ghp_xxxxxxxxxxxx" required>
+        </div>
+        <p style="font-size:0.8rem;color:var(--admin-text-muted);margin-bottom:1rem">Token se uloží pouze ve vašem prohlížeči. Slouží k publikování změn přímo na web.</p>
+        <button type="submit" class="admin-btn admin-btn--primary" style="width:100%">Propojit</button>
       </form>
     </div>
   </div>
@@ -244,8 +271,16 @@
             </form>
           </div>
           <div class="admin-card">
+            <div class="admin-card__header"><h3>GitHub propojení</h3></div>
+            <p style="color:var(--admin-text-muted);font-size:0.9rem;margin-bottom:1rem">Změny se publikují přímo na web přes GitHub API.</p>
+            <button class="admin-btn admin-btn--secondary" id="btn-change-token">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Změnit GitHub token
+            </button>
+          </div>
+          <div class="admin-card">
             <div class="admin-card__header"><h3>Správa dat</h3></div>
-            <p style="color:var(--admin-text-muted);font-size:0.9rem;margin-bottom:1rem">Export zahrnuje vozidla, obrázky, kontakt, hero i statistiky.</p>
+            <p style="color:var(--admin-text-muted);font-size:0.9rem;margin-bottom:1rem">Export zahrnuje vozidla, kontakt, hero i statistiky.</p>
             <div class="data-actions">
               <button class="admin-btn admin-btn--secondary" id="btn-export">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>

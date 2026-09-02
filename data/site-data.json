@@ -1,0 +1,84 @@
+{
+  "vehicles": [
+    {
+      "id": "v790",
+      "title": "Mazda CX-5 2.0i Sports-Line",
+      "desc": "FULL LED, Navigace, Tažné zařízení, Servisní knížka",
+      "price": "459 000 Kč",
+      "year": 2018,
+      "km": "115 000 km",
+      "power": "121 kW",
+      "fuel": "Benzín",
+      "transmission": "Manuál",
+      "vin": "JMZKF6W7600665852",
+      "image": "assets/images/vehicle-790-mazda-cx5.jpg",
+      "gallery": [
+        "assets/images/v790-gallery-1.jpg",
+        "assets/images/v790-gallery-2.jpg",
+        "assets/images/v790-gallery-3.jpg",
+        "assets/images/v790-gallery-4.jpg"
+      ],
+      "status": "Skladem"
+    },
+    {
+      "id": "v785",
+      "title": "Mazda CX-5 2.0i Kangei",
+      "desc": "FULL LED, Navigace, Tempomat, Originální tažné zařízení",
+      "price": "485 000 Kč",
+      "year": 2020,
+      "km": "117 000 km",
+      "power": "121 kW",
+      "fuel": "Benzín",
+      "transmission": "Manuál",
+      "vin": "JMZKF6W7600862686",
+      "image": "assets/images/vehicle-785-mazda-cx5.jpg",
+      "gallery": [
+        "assets/images/v785-gallery-1.jpg",
+        "assets/images/v785-gallery-2.jpg",
+        "assets/images/v785-gallery-3.jpg",
+        "assets/images/v785-gallery-4.jpg"
+      ],
+      "status": "Skladem"
+    },
+    {
+      "id": "v782",
+      "title": "Škoda Fabia 1.2 TSI Joy Kombi",
+      "desc": "Digitální klima, Tempomat, Vyhřívaná sedadla, Servisní knížka",
+      "price": "219 000 Kč",
+      "year": 2016,
+      "km": "100 000 km",
+      "power": "66 kW",
+      "fuel": "Benzín",
+      "transmission": "Manuál",
+      "vin": "TMBJM6NJ5GZ197332",
+      "image": "assets/images/vehicle-782-skoda-fabia.jpg",
+      "gallery": [
+        "assets/images/v782-gallery-1.jpg",
+        "assets/images/v782-gallery-2.jpg",
+        "assets/images/v782-gallery-3.jpg",
+        "assets/images/v782-gallery-4.jpg"
+      ],
+      "status": "Skladem"
+    }
+  ],
+  "hero": {
+    "title": "Prověřené vozy z\u00a0Německa bez\u00a0starostí",
+    "subtitle": "Dovážíme pečlivě vybrané ojeté vozy s\u00a0transparentní historií. Žádné stočené kilometry, žádné skryté vady — jen férový přístup a\u00a0auta, která bychom sami rádi řídili.",
+    "btn1Text": "Prohlédnout nabídku",
+    "btn2Text": "Jak funguje dovoz",
+    "badge": "790+ úspěšně prodaných vozů · 10+ let na trhu"
+  },
+  "contact": {
+    "name": "Jan Tomášek",
+    "phone": "+420 776 210 220",
+    "email": "info@jt-auto.cz",
+    "address": "Václavská 1114, Chrudim 2, 537 01",
+    "showroom": "Dašická 146, Chrudim, 537 01",
+    "ico": "74412183",
+    "dic": "CZ7906223127"
+  },
+  "stats": {
+    "vehicles": 790,
+    "years": 10
+  }
+}
