@@ -93,6 +93,7 @@
     font-size: var(--text-body);
     color: var(--color-text);
     background-color: var(--color-surface);
+    overflow-x: hidden;
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
@@ -523,9 +524,14 @@
   @media (max-width: 900px) {
     .vehicle-card--detail { flex-direction: column; }
     .vehicle-card--detail .vehicle-card__img { flex: auto; max-width: 100%; }
-    .vehicle-card--detail .vehicle-card__img img { min-height: 240px; }
+    .vehicle-card--detail .vehicle-card__img img { min-height: 200px; }
     .vehicle-card--detail .vehicle-card__specs { grid-template-columns: repeat(2, 1fr); }
     .vehicle-card--detail .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 480px) {
+    .vehicle-card--detail .vehicle-card__img img { min-height: 180px; }
+    .vehicle-card--detail .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 4px; }
+    .gallery-grid a { aspect-ratio: 3/2; }
   }
 
   /* --- Stats --- */
@@ -787,18 +793,37 @@
     .archive-filters { position: static; }
   }
 
+  /* --- Vehicle actions wrap --- */
+  .vehicle-card__actions {
+    display: flex; flex-wrap: wrap; gap: var(--space-sm);
+  }
+
   /* --- Responsive --- */
   @media (max-width: 768px) {
     .hero { min-height: 80vh; }
+    .hero h1 { font-size: clamp(1.8rem, 1.2rem + 3vw, 2.8rem); }
+    .hero__badge { font-size: 0.78rem; text-align: center; flex-wrap: wrap; justify-content: center; }
     .trust-card { flex-direction: column; text-align: center; }
     .trust-card__icon { margin: 0 auto; }
     .site-footer .grid--4 { grid-template-columns: repeat(2, 1fr); gap: var(--space-2xl); }
     .site-footer__bottom { flex-direction: column; gap: var(--space-md); text-align: center; }
+    .vehicle-card--detail .vehicle-card__specs { grid-template-columns: 1fr 1fr; }
+    .vehicle-card--detail .vehicle-card__actions .btn { width: 100%; }
+    .vehicle-card__spec { font-size: 0.8rem; word-break: break-all; }
+    .contact-form { gap: var(--space-md); }
   }
   @media (max-width: 480px) {
     .site-footer .grid--4 { grid-template-columns: 1fr; }
     .hero__actions { flex-direction: column; }
     .hero__actions .btn { width: 100%; }
+    .hero__badge { padding: var(--space-sm) var(--space-md); }
+    .vehicle-card--detail .vehicle-card__specs { grid-template-columns: 1fr; }
+    .vehicle-card__price { font-size: 1.3rem; }
+    .stats .grid--4 { gap: 0; }
+    .stat { padding: var(--space-md); }
+    .stat__number { font-size: clamp(2rem, 1.5rem + 2vw, 2.8rem); }
+    .process-step { padding: var(--space-xl) var(--space-md); }
+    .contact-info-grid { grid-template-columns: 1fr; }
   }
 }
 
