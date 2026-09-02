@@ -100,7 +100,7 @@
             <form action="https://formsubmit.co/info@jt-auto.cz" method="POST" class="contact-form">
               <input type="hidden" name="_subject" value="Nová poptávka z jt-auto.cz">
               <input type="hidden" name="_captcha" value="false">
-              <input type="hidden" name="_next" value="https://jt-auto.cz/kontakt.html">
+              <input type="hidden" name="_next" value="https://jt-auto.cz/kontakt.html?sent=1">
               <input type="text" name="_honey" class="visually-hidden" tabindex="-1" autocomplete="off">
               <div class="form-group">
                 <label for="name" class="form-label">Jméno a příjmení</label>
@@ -203,6 +203,15 @@
   <script src="js/site-data.js"></script>
   <script src="js/main.js"></script>
   <script>
+    // Form success feedback
+    if (new URLSearchParams(location.search).get('sent') === '1') {
+      const form = document.querySelector('.contact-form');
+      if (form) {
+        form.innerHTML = '<div class="form-success"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 1rem;display:block"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Zpráva odeslána!<br><span style="font-weight:400;font-size:0.9rem;color:var(--color-text-muted)">Ozveme se vám do 24 hodin.</span></div>';
+        history.replaceState(null, '', 'kontakt.html');
+      }
+    }
+
     if (!localStorage.getItem('jt_cookies_accepted')) {
       setTimeout(() => document.getElementById('cookie-banner').classList.add('visible'), 1000);
     }

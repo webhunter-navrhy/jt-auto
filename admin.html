@@ -6,8 +6,6 @@
   <title>Administrace | JT Auto</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>">
-  <link rel="preload" href="assets/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
   <style>
     @font-face { font-family: 'Space Grotesk'; font-style: normal; font-weight: 500 700; font-display: swap; src: url('assets/fonts/space-grotesk.woff2') format('woff2'); }
     @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400 700; font-display: swap; src: url('assets/fonts/inter.woff2') format('woff2'); }
@@ -16,7 +14,7 @@
 </head>
 <body>
 
-  <!-- LOGIN SCREEN -->
+  <!-- LOGIN -->
   <div id="login-screen" class="login-screen">
     <div class="login-box">
       <div class="login-box__logo">
@@ -29,18 +27,16 @@
           <label for="login-password">Heslo</label>
           <input type="password" id="login-password" placeholder="Zadejte heslo" required autofocus>
         </div>
-        <p id="login-error" class="login-error">Nesprávné heslo. Zkuste to znovu.</p>
-        <button type="submit" class="admin-btn admin-btn--primary" style="width:100%;">Přihlásit se</button>
+        <p id="login-error" class="login-error">Nesprávné heslo.</p>
+        <button type="submit" class="admin-btn admin-btn--primary" style="width:100%">Přihlásit se</button>
       </form>
     </div>
   </div>
 
-  <!-- ADMIN LAYOUT -->
+  <!-- LAYOUT -->
   <div id="admin-layout" class="admin-layout" hidden>
-    <!-- Sidebar overlay (mobile) -->
     <div id="sidebar-overlay" class="admin-sidebar-overlay"></div>
 
-    <!-- Sidebar -->
     <aside class="admin-sidebar" id="admin-sidebar">
       <div class="admin-sidebar__header">
         <h2>JT Auto</h2>
@@ -56,7 +52,7 @@
           Vozidla
         </button>
         <button class="admin-nav__item" data-section="hero">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
           Hero sekce
         </button>
         <button class="admin-nav__item" data-section="contact">
@@ -68,7 +64,7 @@
           Statistiky
         </button>
         <button class="admin-nav__item" data-section="settings">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.604.852.997 1.51 1H21a2 2 0 0 1 0 4h-.09c-.658.003-1.25.396-1.51 1z"/></svg>
           Nastavení
         </button>
       </nav>
@@ -80,10 +76,9 @@
       </div>
     </aside>
 
-    <!-- Main -->
     <div class="admin-main">
       <header class="admin-header">
-        <div style="display:flex;align-items:center;gap:0.75rem;">
+        <div style="display:flex;align-items:center;gap:0.75rem">
           <button class="admin-sidebar-toggle" id="sidebar-toggle" aria-label="Menu">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
           </button>
@@ -100,10 +95,8 @@
         <div class="admin-section active" id="sec-dashboard">
           <div class="stats-grid" id="dashboard-stats"></div>
           <div class="admin-card">
-            <div class="admin-card__header">
-              <h3>Rychlé akce</h3>
-            </div>
-            <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+            <div class="admin-card__header"><h3>Rychlé akce</h3></div>
+            <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
               <button class="admin-btn admin-btn--primary" onclick="Admin.showSection('vehicles')">Spravovat vozidla</button>
               <button class="admin-btn admin-btn--secondary" onclick="Admin.showSection('contact')">Upravit kontakt</button>
               <button class="admin-btn admin-btn--secondary" onclick="Admin.showSection('hero')">Upravit hero</button>
@@ -113,44 +106,55 @@
 
         <!-- VEHICLES -->
         <div class="admin-section" id="sec-vehicles">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
-            <p style="color:var(--admin-text-muted);font-size:0.9rem;">Spravujte aktuální nabídku vozidel na webu.</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:0.75rem">
+            <p style="color:var(--admin-text-muted);font-size:0.9rem;margin:0">Spravujte aktuální nabídku vozidel.</p>
             <button class="admin-btn admin-btn--success" id="btn-add-vehicle">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
               Přidat vůz
             </button>
           </div>
-          <div id="vehicle-list" class="vehicle-list"></div>
+
+          <!-- Active vehicles -->
+          <div class="admin-card">
+            <div class="admin-card__header"><h3>V nabídce</h3></div>
+            <div id="vehicle-list-active" class="vehicle-list"></div>
+          </div>
+
+          <!-- Sold vehicles -->
+          <div class="admin-card">
+            <div class="admin-card__header">
+              <h3>Prodané <span class="sold-badge" id="sold-count">0</span></h3>
+            </div>
+            <div id="vehicle-list-sold" class="vehicle-list"></div>
+          </div>
         </div>
 
         <!-- HERO -->
         <div class="admin-section" id="sec-hero">
           <div class="admin-card">
-            <div class="admin-card__header">
-              <h3>Hero sekce na hlavní stránce</h3>
-            </div>
+            <div class="admin-card__header"><h3>Hero sekce na hlavní stránce</h3></div>
             <form class="admin-form" id="hero-form">
               <div class="form-group">
                 <label for="hero-title">Nadpis</label>
-                <input type="text" id="hero-title" value="Prověřené vozy z Německa bez starostí">
+                <input type="text" id="hero-title">
               </div>
               <div class="form-group">
                 <label for="hero-subtitle">Popis</label>
-                <textarea id="hero-subtitle" rows="3">Dovážíme pečlivě vybrané ojeté vozy s transparentní historií. Žádné stočené kilometry, žádné skryté vady — jen férový přístup a auta, která bychom sami rádi řídili.</textarea>
+                <textarea id="hero-subtitle" rows="3"></textarea>
               </div>
               <div class="form-row">
                 <div class="form-group">
                   <label for="hero-btn1-text">Primární tlačítko</label>
-                  <input type="text" id="hero-btn1-text" value="Prohlédnout nabídku">
+                  <input type="text" id="hero-btn1-text">
                 </div>
                 <div class="form-group">
                   <label for="hero-btn2-text">Sekundární tlačítko</label>
-                  <input type="text" id="hero-btn2-text" value="Jak funguje dovoz">
+                  <input type="text" id="hero-btn2-text">
                 </div>
               </div>
               <div class="form-group">
                 <label for="hero-badge">Badge text</label>
-                <input type="text" id="hero-badge" value="790+ úspěšně prodaných vozů · 10+ let na trhu">
+                <input type="text" id="hero-badge">
               </div>
               <button type="submit" class="admin-btn admin-btn--primary">Uložit změny</button>
             </form>
@@ -160,40 +164,38 @@
         <!-- CONTACT -->
         <div class="admin-section" id="sec-contact">
           <div class="admin-card">
-            <div class="admin-card__header">
-              <h3>Kontaktní údaje</h3>
-            </div>
+            <div class="admin-card__header"><h3>Kontaktní údaje</h3></div>
             <form class="admin-form" id="contact-form">
               <div class="form-group">
                 <label for="contact-name">Jméno</label>
-                <input type="text" id="contact-name" value="Jan Tomášek">
+                <input type="text" id="contact-name">
               </div>
               <div class="form-row">
                 <div class="form-group">
                   <label for="contact-phone">Telefon</label>
-                  <input type="tel" id="contact-phone" value="+420 776 210 220">
+                  <input type="tel" id="contact-phone">
                 </div>
                 <div class="form-group">
                   <label for="contact-email">E-mail</label>
-                  <input type="email" id="contact-email" value="info@jt-auto.cz">
+                  <input type="email" id="contact-email">
                 </div>
               </div>
               <div class="form-group">
-                <label for="contact-address">Sídlo (adresa)</label>
-                <input type="text" id="contact-address" value="Václavská 1114, Chrudim 2, 537 01">
+                <label for="contact-address">Sídlo</label>
+                <input type="text" id="contact-address">
               </div>
               <div class="form-group">
-                <label for="contact-showroom">Prohlídky vozidel (adresa)</label>
-                <input type="text" id="contact-showroom" value="Dašická 146, Chrudim, 537 01">
+                <label for="contact-showroom">Prohlídky vozidel</label>
+                <input type="text" id="contact-showroom">
               </div>
               <div class="form-row">
                 <div class="form-group">
                   <label for="contact-ico">IČ</label>
-                  <input type="text" id="contact-ico" value="74412183">
+                  <input type="text" id="contact-ico">
                 </div>
                 <div class="form-group">
                   <label for="contact-dic">DIČ</label>
-                  <input type="text" id="contact-dic" value="CZ7906223127">
+                  <input type="text" id="contact-dic">
                 </div>
               </div>
               <button type="submit" class="admin-btn admin-btn--primary">Uložit změny</button>
@@ -204,18 +206,16 @@
         <!-- STATS -->
         <div class="admin-section" id="sec-stats">
           <div class="admin-card">
-            <div class="admin-card__header">
-              <h3>Statistiky na hlavní stránce</h3>
-            </div>
+            <div class="admin-card__header"><h3>Statistiky na hlavní stránce</h3></div>
             <form class="admin-form" id="stats-form">
               <div class="form-row">
                 <div class="form-group">
                   <label for="stat-vehicles">Prodaných vozidel</label>
-                  <input type="number" id="stat-vehicles" value="790">
+                  <input type="number" id="stat-vehicles">
                 </div>
                 <div class="form-group">
                   <label for="stat-years">Let na trhu</label>
-                  <input type="number" id="stat-years" value="10">
+                  <input type="number" id="stat-years">
                 </div>
               </div>
               <button type="submit" class="admin-btn admin-btn--primary">Uložit změny</button>
@@ -226,9 +226,7 @@
         <!-- SETTINGS -->
         <div class="admin-section" id="sec-settings">
           <div class="admin-card">
-            <div class="admin-card__header">
-              <h3>Změna hesla</h3>
-            </div>
+            <div class="admin-card__header"><h3>Změna hesla</h3></div>
             <form class="admin-form" id="password-form">
               <div class="form-group">
                 <label for="current-password">Současné heslo</label>
@@ -239,27 +237,24 @@
                 <input type="password" id="new-password" required minlength="3">
               </div>
               <div class="form-group">
-                <label for="confirm-password">Potvrzení nového hesla</label>
+                <label for="confirm-password">Potvrzení hesla</label>
                 <input type="password" id="confirm-password" required>
               </div>
               <button type="submit" class="admin-btn admin-btn--primary">Změnit heslo</button>
             </form>
           </div>
-
           <div class="admin-card">
-            <div class="admin-card__header">
-              <h3>Správa dat</h3>
-            </div>
-            <p style="color:var(--admin-text-muted);font-size:0.9rem;margin-bottom:1rem;">Exportujte nebo importujte data administrace. Záloha obsahuje vozidla, kontakt, hero, statistiky.</p>
+            <div class="admin-card__header"><h3>Správa dat</h3></div>
+            <p style="color:var(--admin-text-muted);font-size:0.9rem;margin-bottom:1rem">Export zahrnuje vozidla, obrázky, kontakt, hero i statistiky.</p>
             <div class="data-actions">
               <button class="admin-btn admin-btn--secondary" id="btn-export">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                Exportovat data
+                Exportovat
               </button>
-              <label class="admin-btn admin-btn--secondary" style="cursor:pointer;">
+              <label class="admin-btn admin-btn--secondary" style="cursor:pointer">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                Importovat data
-                <input type="file" id="btn-import" accept=".json" style="display:none;">
+                Importovat
+                <input type="file" id="btn-import" accept=".json" style="display:none">
               </label>
               <button class="admin-btn admin-btn--danger" id="btn-reset-data">Smazat vše</button>
             </div>
@@ -279,31 +274,32 @@
       </div>
       <form class="admin-form" id="vehicle-form">
         <input type="hidden" id="vf-id">
+
         <div class="form-group">
-          <label for="vf-title">Název vozidla</label>
+          <label for="vf-title">Název vozidla *</label>
           <input type="text" id="vf-title" required placeholder="Mazda CX-5 2.0i Sports-Line">
         </div>
         <div class="form-group">
-          <label for="vf-desc">Výbava (krátký popis)</label>
+          <label for="vf-desc">Výbava</label>
           <input type="text" id="vf-desc" placeholder="FULL LED, Navigace, Tažné zařízení">
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label for="vf-price">Cena</label>
+            <label for="vf-price">Cena *</label>
             <input type="text" id="vf-price" required placeholder="459 000 Kč">
           </div>
           <div class="form-group">
-            <label for="vf-year">Rok</label>
+            <label for="vf-year">Rok *</label>
             <input type="number" id="vf-year" required placeholder="2018" min="1990" max="2030">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label for="vf-km">Kilometry</label>
+            <label for="vf-km">Kilometry *</label>
             <input type="text" id="vf-km" required placeholder="115 000 km">
           </div>
           <div class="form-group">
-            <label for="vf-power">Výkon</label>
+            <label for="vf-power">Výkon *</label>
             <input type="text" id="vf-power" required placeholder="121 kW">
           </div>
         </div>
@@ -331,16 +327,6 @@
           <input type="text" id="vf-vin" placeholder="JMZKF6W7600665852">
         </div>
         <div class="form-group">
-          <label for="vf-image">Hlavní foto (cesta k souboru)</label>
-          <input type="text" id="vf-image" placeholder="assets/images/vehicle-790-mazda-cx5.jpg">
-          <p class="form-hint">Relativní cesta k obrázku v adresáři webu</p>
-        </div>
-        <div class="form-group">
-          <label for="vf-gallery">Galerie (cesty oddělené čárkou)</label>
-          <textarea id="vf-gallery" rows="2" placeholder="assets/images/v790-gallery-1.jpg, assets/images/v790-gallery-2.jpg"></textarea>
-          <p class="form-hint">Relativní cesty k obrázkům galerie, oddělené čárkou</p>
-        </div>
-        <div class="form-group">
           <label for="vf-status">Stav</label>
           <select id="vf-status">
             <option value="Skladem">Skladem</option>
@@ -348,17 +334,38 @@
             <option value="Prodáno">Prodáno</option>
           </select>
         </div>
+
+        <!-- Main image upload -->
+        <div class="form-group">
+          <label>Hlavní fotografie</label>
+          <div class="upload-zone" id="main-img-zone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <p>Přetáhněte foto sem nebo <label for="main-img-input" class="upload-zone__link">vyberte soubor</label></p>
+            <input type="file" id="main-img-input" accept="image/*" style="display:none">
+          </div>
+          <div id="main-img-preview" class="upload-preview"></div>
+        </div>
+
+        <!-- Gallery upload -->
+        <div class="form-group">
+          <label>Galerie (více fotek)</label>
+          <div class="upload-zone" id="gallery-zone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <p>Přetáhněte fotky sem nebo <label for="gallery-input" class="upload-zone__link">vyberte soubory</label></p>
+            <input type="file" id="gallery-input" accept="image/*" multiple style="display:none">
+          </div>
+          <div id="gallery-preview" class="upload-preview"></div>
+        </div>
+
         <div class="admin-modal__footer">
           <button type="button" class="admin-btn admin-btn--secondary" id="vehicle-modal-cancel">Zrušit</button>
-          <button type="submit" class="admin-btn admin-btn--primary">Uložit</button>
+          <button type="submit" class="admin-btn admin-btn--primary">Uložit vozidlo</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- TOAST -->
   <div id="admin-toast" class="admin-toast"></div>
-
   <script src="js/admin.js"></script>
 </body>
 </html>

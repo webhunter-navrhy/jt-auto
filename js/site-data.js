@@ -1,22 +1,76 @@
-/* JT Auto — Dynamic content loader
-   Reads admin-saved data from localStorage and applies to pages. */
-(function() {
+/* JT Auto — Dynamic content loader v2
+   Reads admin data from localStorage + IndexedDB, applies to pages */
+(async function() {
   'use strict';
 
-  function getData(key) {
-    try {
-      const d = localStorage.getItem(key);
-      return d ? JSON.parse(d) : null;
-    } catch { return null; }
+  const DB_NAME = 'jt_auto_db';
+  const DB_VERSION = 1;
+  const IMG_STORE = 'images';
+
+  function getData(k) { try { const d = localStorage.getItem(k); return d ? JSON.parse(d) : null; } catch { return null; } }
+  function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+  /* ===== IndexedDB ===== */
+  let db = null;
+  function openDB() {
+    return new Promise((resolve) => {
+      if (db) return resolve(db);
+      const req = indexedDB.open(DB_NAME, DB_VERSION);
+      req.onupgradeneeded = (e) => {
+        const d = e.target.result;
+        if (!d.objectStoreNames.contains(IMG_STORE)) d.createObjectStore(IMG_STORE, { keyPath: 'id' });
+      };
+      req.onsuccess = (e) => { db = e.target.result; resolve(db); };
+      req.onerror = () => resolve(null);
+    });
   }
 
-  function escapeHtml(str) {
-    const d = document.createElement('div');
-    d.textContent = str;
-    return d.innerHTML;
+  async function getImage(id) {
+    const d = await openDB();
+    if (!d) return null;
+    return new Promise((resolve) => {
+      const tx = d.transaction(IMG_STORE, 'readonly');
+      const req = tx.objectStore(IMG_STORE).get(id);
+      req.onsuccess = () => resolve(req.result?.blob || null);
+      req.onerror = () => resolve(null);
+    });
+  }
+
+  function blobUrl(blob) { return blob ? URL.createObjectURL(blob) : ''; }
+
+  async function getVehicleImgSrc(v) {
+    if (v.imageType === 'db') {
+      const blob = await getImage(v.id + '_main');
+      return blob ? blobUrl(blob) : '';
+    }
+    return v.image || '';
+  }
+
+  async function getVehicleGallerySrcs(v) {
+    if (v.imageType === 'db') {
+      const count = v.galleryCount || 0;
+      const srcs = [];
+      for (let i = 0; i < count; i++) {
+        const blob = await getImage(v.id + '_gallery_' + i);
+        if (blob) srcs.push(blobUrl(blob));
+      }
+      return srcs;
+    }
+    return v.gallery || [];
   }
 
   const page = location.pathname.split('/').pop() || 'index.html';
+
+  /* SVG icons */
+  const icons = {
+    cal: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+    km: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>',
+    pow: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+    fuel: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>',
+    gear: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>',
+    doc: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',
+    vin: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>'
+  };
 
   /* ===== HERO (index.html) ===== */
   if (page === 'index.html' || page === '') {
@@ -27,7 +81,6 @@
       const btn1 = document.querySelector('.hero__actions .btn--white');
       const btn2 = document.querySelector('.hero__actions .btn--ghost-white');
       const badge = document.querySelector('.hero__badge');
-
       if (h1 && hero.title) h1.innerHTML = hero.title;
       if (p && hero.subtitle) p.innerHTML = hero.subtitle;
       if (btn1 && hero.btn1Text) btn1.textContent = hero.btn1Text;
@@ -35,196 +88,176 @@
       if (badge && hero.badge) badge.innerHTML = hero.badge;
     }
 
-    /* Stats */
     const stats = getData('jt_stats');
     if (stats) {
-      const counters = document.querySelectorAll('.counter');
-      counters.forEach(c => {
-        if (c.dataset.target === '790' && stats.vehicles) {
-          c.dataset.target = stats.vehicles;
-          c.textContent = stats.vehicles + '+';
-        }
-        if (c.dataset.target === '10' && stats.years) {
-          c.dataset.target = stats.years;
-          c.textContent = stats.years + '+';
-        }
+      document.querySelectorAll('.counter').forEach(c => {
+        if (c.dataset.target === '790' && stats.vehicles) { c.dataset.target = stats.vehicles; c.textContent = stats.vehicles + '+'; }
+        if (c.dataset.target === '10' && stats.years) { c.dataset.target = stats.years; c.textContent = stats.years + '+'; }
       });
     }
   }
 
-  /* ===== VEHICLES (index.html + nabidka.html) ===== */
+  /* ===== VEHICLES ===== */
   const vehicles = getData('jt_vehicles');
   if (vehicles) {
-
-    /* SVG icon templates */
-    const svgCalendar = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>';
-    const svgClock = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>';
-    const svgBolt = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>';
-    const svgFuel = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>';
-    const svgGear = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>';
-    const svgDoc = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>';
-    const svgVin = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>';
-
     const inStock = vehicles.filter(v => v.status === 'Skladem' || v.status === 'Rezervováno');
+    const soldVehicles = vehicles.filter(v => v.status === 'Prodáno');
 
-    /* INDEX — featured vehicle cards */
+    /* INDEX — featured cards */
     if (page === 'index.html' || page === '') {
       const grid = document.querySelector('#nabidka .grid--3');
       if (grid && inStock.length) {
         const featured = inStock.slice(0, 3);
-        grid.innerHTML = featured.map(v => `
-          <article class="vehicle-card card--lift stagger-item">
-            <div class="vehicle-card__img img-overlay">
-              <img src="${escapeHtml(v.image)}" alt="${escapeHtml(v.title)}" width="800" height="533" loading="lazy">
-              <span class="vehicle-card__badge">${escapeHtml(v.status)}</span>
-            </div>
-            <div class="vehicle-card__body">
-              <h3 class="vehicle-card__title">${escapeHtml(v.title)}</h3>
-              <div class="vehicle-card__price">${escapeHtml(v.price)}</div>
-              <div class="vehicle-card__specs">
-                <span class="vehicle-card__spec">${svgCalendar} ${v.year}</span>
-                <span class="vehicle-card__spec">${svgClock} ${escapeHtml(v.km)}</span>
-                <span class="vehicle-card__spec">${svgBolt} ${escapeHtml(v.power)}</span>
-                <span class="vehicle-card__spec">${svgFuel} ${escapeHtml(v.fuel)}</span>
+        let html = '';
+        for (const v of featured) {
+          const imgSrc = await getVehicleImgSrc(v);
+          html += `
+            <article class="vehicle-card card--lift stagger-item">
+              <div class="vehicle-card__img img-overlay">
+                ${imgSrc ? `<img src="${esc(imgSrc)}" alt="${esc(v.title)}" width="800" height="533" loading="lazy">` : ''}
+                <span class="vehicle-card__badge">${esc(v.status)}</span>
               </div>
-              <div class="vehicle-card__actions">
-                <a href="nabidka.html#${v.id}" class="btn btn--primary btn--sm btn--block">Zobrazit detail</a>
+              <div class="vehicle-card__body">
+                <h3 class="vehicle-card__title">${esc(v.title)}</h3>
+                <div class="vehicle-card__price">${esc(v.price)}</div>
+                <div class="vehicle-card__specs">
+                  <span class="vehicle-card__spec">${icons.cal} ${v.year}</span>
+                  <span class="vehicle-card__spec">${icons.km} ${esc(v.km)}</span>
+                  <span class="vehicle-card__spec">${icons.pow} ${esc(v.power)}</span>
+                  <span class="vehicle-card__spec">${icons.fuel} ${esc(v.fuel)}</span>
+                </div>
+                <div class="vehicle-card__actions"><a href="nabidka.html#${v.id}" class="btn btn--primary btn--sm btn--block">Zobrazit detail</a></div>
               </div>
-            </div>
-          </article>
-        `).join('');
+            </article>`;
+        }
+        grid.innerHTML = html;
       }
     }
 
-    /* NABIDKA — full vehicle details */
+    /* NABIDKA — full detail cards */
     if (page === 'nabidka.html') {
       const container = document.querySelector('.vehicles-section .container');
       if (container) {
         const ctaBox = container.querySelector('.cta-box');
-        const legalText = container.querySelector('.legal-text');
-
-        // Remove existing vehicle articles
         container.querySelectorAll('.vehicle-card--detail').forEach(el => el.remove());
 
-        // Build new ones
-        const fragment = document.createDocumentFragment();
-        inStock.forEach(v => {
+        for (const v of inStock) {
+          const imgSrc = await getVehicleImgSrc(v);
+          const gallerySrcs = await getVehicleGallerySrcs(v);
+
           const article = document.createElement('article');
           article.id = v.id;
           article.className = 'vehicle-card vehicle-card--detail card--lift';
           article.setAttribute('data-reveal', '');
 
-          const galleryHtml = (v.gallery || []).map((src, i) =>
-            `<a href="${escapeHtml(src)}" data-lightbox class="stagger-item"><img src="${escapeHtml(src)}" alt="${escapeHtml(v.title)} detail ${i+1}" loading="lazy"></a>`
+          const galleryHtml = gallerySrcs.map((src, i) =>
+            `<a href="${esc(src)}" data-lightbox class="stagger-item"><img src="${esc(src)}" alt="${esc(v.title)} detail ${i+1}" loading="lazy"></a>`
           ).join('');
-
-          const badgeClass = v.status === 'Skladem' ? 'vehicle-card__badge' :
-                             v.status === 'Rezervováno' ? 'vehicle-card__badge' :
-                             'vehicle-card__badge vehicle-card__badge--sold';
 
           article.innerHTML = `
             <div class="vehicle-card__img img-overlay">
-              <img src="${escapeHtml(v.image)}" alt="${escapeHtml(v.title)}" width="800" height="533" loading="lazy">
-              <span class="${badgeClass}">${escapeHtml(v.status)}</span>
+              ${imgSrc ? `<img src="${esc(imgSrc)}" alt="${esc(v.title)}" width="800" height="533" loading="lazy">` : ''}
+              <span class="vehicle-card__badge">${esc(v.status)}</span>
             </div>
             <div class="vehicle-card__body">
-              <h2 class="vehicle-card__title">${escapeHtml(v.title)}</h2>
-              ${v.desc ? `<p class="text-muted text-sm">${escapeHtml(v.desc)}</p>` : ''}
-              <div class="vehicle-card__price">${escapeHtml(v.price)}</div>
+              <h2 class="vehicle-card__title">${esc(v.title)}</h2>
+              ${v.desc ? `<p class="text-muted text-sm">${esc(v.desc)}</p>` : ''}
+              <div class="vehicle-card__price">${esc(v.price)}</div>
               <div class="vehicle-card__specs">
-                <span class="vehicle-card__spec">${svgCalendar} Rok ${v.year}</span>
-                <span class="vehicle-card__spec">${svgClock} ${escapeHtml(v.km)}</span>
-                <span class="vehicle-card__spec">${svgBolt} ${escapeHtml(v.power)} / ${escapeHtml(v.fuel)}</span>
-                <span class="vehicle-card__spec">${svgGear} ${escapeHtml(v.transmission || 'Manuál')}</span>
-                <span class="vehicle-card__spec">${svgDoc} Servisní knížka</span>
-                ${v.vin ? `<span class="vehicle-card__spec">${svgVin} VIN: ${escapeHtml(v.vin)}</span>` : ''}
+                <span class="vehicle-card__spec">${icons.cal} Rok ${v.year}</span>
+                <span class="vehicle-card__spec">${icons.km} ${esc(v.km)}</span>
+                <span class="vehicle-card__spec">${icons.pow} ${esc(v.power)} / ${esc(v.fuel)}</span>
+                <span class="vehicle-card__spec">${icons.gear} ${esc(v.transmission || 'Manuál')}</span>
+                <span class="vehicle-card__spec">${icons.doc} Servisní knížka</span>
+                ${v.vin ? `<span class="vehicle-card__spec">${icons.vin} VIN: ${esc(v.vin)}</span>` : ''}
               </div>
               ${galleryHtml ? `<div class="gallery-grid mt-lg">${galleryHtml}</div>` : ''}
               <div class="vehicle-card__actions mt-lg">
                 <a href="tel:+420776210220" class="btn btn--primary btn--magnetic">Zavolat a domluvit prohlídku</a>
                 <a href="kontakt.html" class="btn btn--secondary">Napsat dotaz</a>
               </div>
-            </div>
-          `;
-          fragment.appendChild(article);
-        });
+            </div>`;
 
-        // Insert before CTA box
-        if (ctaBox) {
-          container.insertBefore(fragment, ctaBox);
-        } else if (legalText) {
-          container.insertBefore(fragment, legalText);
-        } else {
-          container.appendChild(fragment);
+          if (ctaBox) container.insertBefore(article, ctaBox);
+          else container.appendChild(article);
         }
 
-        // Re-init lightbox for new elements
+        // Re-init lightbox
         reinitLightbox();
       }
     }
-  }
 
-  /* ===== CONTACT DATA (all pages with footer) ===== */
-  const contact = getData('jt_contact');
-  if (contact) {
-    // Update footer contact on all pages
-    const footerContact = document.querySelector('.site-footer__contact');
-    if (footerContact) {
-      const phoneClean = contact.phone.replace(/\s/g, '');
-      footerContact.innerHTML = `
-        <h4>Kontakt</h4>
-        <p><strong>${escapeHtml(contact.name)}</strong></p>
-        <p>${escapeHtml(contact.address).replace(',', '<br>')}</p>
-        <p><a href="tel:${phoneClean}">${escapeHtml(contact.phone)}</a></p>
-        <p><a href="mailto:${escapeHtml(contact.email)}">${escapeHtml(contact.email)}</a></p>
-        <p class="text-sm mt-sm">IČ: ${escapeHtml(contact.ico)} | DIČ: ${escapeHtml(contact.dic)}</p>
-      `;
-    }
+    /* ARCHIV — add admin-managed sold vehicles at the top */
+    if (page === 'archiv.html' && soldVehicles.length) {
+      const archivGrid = document.querySelector('.archive-grid');
+      if (archivGrid) {
+        const fragment = document.createDocumentFragment();
+        for (const v of soldVehicles) {
+          const imgSrc = await getVehicleImgSrc(v);
+          const card = document.createElement('div');
+          card.className = 'archive-card';
+          card.dataset.brand = v.title.split(' ')[0] || '';
+          card.dataset.year = v.year || '';
+          card.dataset.fuel = v.fuel || '';
+          card.dataset.title = v.title;
 
-    // Update kontakt.html specific elements
-    if (page === 'kontakt.html') {
-      const cards = document.querySelectorAll('.contact-info-card');
-      if (cards.length >= 4) {
-        const phoneClean = contact.phone.replace(/\s/g, '');
-        // Phone card
-        const phoneLink = cards[0].querySelector('a');
-        if (phoneLink) { phoneLink.href = 'tel:' + phoneClean; phoneLink.textContent = contact.phone; }
-        // Email card
-        const emailLink = cards[1].querySelector('a');
-        if (emailLink) { emailLink.href = 'mailto:' + contact.email; emailLink.textContent = contact.email; }
-        // Address card
-        const addrP = cards[2].querySelector('p');
-        if (addrP) addrP.innerHTML = contact.address.replace(',', '<br>');
-        // Showroom card
-        const showP = cards[3].querySelector('p');
-        if (showP) showP.innerHTML = contact.showroom.replace(',', '<br>');
+          card.innerHTML = `
+            <div class="archive-card__img">
+              ${imgSrc ? `<img src="${esc(imgSrc)}" alt="${esc(v.title)}" loading="lazy">` : '<div style="width:100%;height:100%;background:#f1f5f9"></div>'}
+              <span class="vehicle-card__badge vehicle-card__badge--sold">Prodáno</span>
+              <span class="archive-card__num">#${v.id.replace('v','')}</span>
+            </div>
+            <div class="archive-card__body">
+              <div class="archive-card__title">${esc(v.title)}</div>
+              <div class="archive-card__specs">
+                <span>${v.year}</span>
+                <span>${esc(v.km)}</span>
+                <span>${esc(v.power)}</span>
+                <span>${esc(v.fuel)}</span>
+              </div>
+            </div>`;
+
+          fragment.appendChild(card);
+        }
+        archivGrid.insertBefore(fragment, archivGrid.firstChild);
       }
     }
   }
 
-  /* ===== RE-INIT LIGHTBOX ===== */
-  function reinitLightbox() {
-    const lbDialog = document.getElementById('lightbox');
-    if (!lbDialog) return;
-    const lbImg = lbDialog.querySelector('.lightbox__img');
-    const items = [...document.querySelectorAll('[data-lightbox]')];
-    let currentIdx = 0;
-
-    function show(idx) {
-      currentIdx = idx;
-      const el = items[idx];
-      const src = el.href || el.querySelector('img')?.src || '';
-      const alt = el.querySelector('img')?.alt || '';
-      lbImg.src = src;
-      lbImg.alt = alt;
-      lbDialog.showModal();
+  /* ===== CONTACT ===== */
+  const contact = getData('jt_contact');
+  if (contact) {
+    const fc = document.querySelector('.site-footer__contact');
+    if (fc) {
+      const ph = contact.phone.replace(/\s/g, '');
+      fc.innerHTML = `<h4>Kontakt</h4><p><strong>${esc(contact.name)}</strong></p><p>${esc(contact.address).replace(',','<br>')}</p><p><a href="tel:${ph}">${esc(contact.phone)}</a></p><p><a href="mailto:${esc(contact.email)}">${esc(contact.email)}</a></p><p class="text-sm mt-sm">IČ: ${esc(contact.ico)} | DIČ: ${esc(contact.dic)}</p>`;
     }
 
-    items.forEach((el, i) => {
-      el.style.cursor = 'zoom-in';
-      el.removeEventListener('click', el._lbHandler);
-      el._lbHandler = (e) => { e.preventDefault(); show(i); };
-      el.addEventListener('click', el._lbHandler);
+    if (page === 'kontakt.html') {
+      const cards = document.querySelectorAll('.contact-info-card');
+      if (cards.length >= 4) {
+        const ph = contact.phone.replace(/\s/g, '');
+        const a0 = cards[0].querySelector('a'); if (a0) { a0.href = 'tel:' + ph; a0.textContent = contact.phone; }
+        const a1 = cards[1].querySelector('a'); if (a1) { a1.href = 'mailto:' + contact.email; a1.textContent = contact.email; }
+        const p2 = cards[2].querySelector('p'); if (p2) p2.innerHTML = contact.address.replace(',', '<br>');
+        const p3 = cards[3].querySelector('p'); if (p3) p3.innerHTML = contact.showroom.replace(',', '<br>');
+      }
+    }
+  }
+
+  /* ===== LIGHTBOX RE-INIT ===== */
+  function reinitLightbox() {
+    const dlg = document.getElementById('lightbox');
+    if (!dlg) return;
+    const img = dlg.querySelector('.lightbox__img');
+    const items = [...document.querySelectorAll('[data-lightbox]')];
+    let idx = 0;
+    function show(i) { idx = i; const el = items[i]; img.src = el.href || el.querySelector('img')?.src || ''; img.alt = el.querySelector('img')?.alt || ''; dlg.showModal(); }
+    items.forEach((el, i) => { el.style.cursor = 'zoom-in'; el.onclick = (e) => { e.preventDefault(); show(i); }; });
+    document.addEventListener('keydown', (e) => {
+      if (!dlg.open) return;
+      if (e.key === 'ArrowRight' && idx < items.length - 1) show(idx + 1);
+      if (e.key === 'ArrowLeft' && idx > 0) show(idx - 1);
     });
   }
 })();
