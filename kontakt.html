@@ -97,10 +97,11 @@
             <span class="section-label">Napište nám</span>
             <h2 class="mb-md">Poptejte vůz nebo se zeptejte</h2>
             <p class="mb-lg">Popište, jaký vůz hledáte — značku, model, rozpočet, rok. Ozveme se do 24&nbsp;hodin.</p>
-            <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
-              <input type="hidden" name="access_key" value="YOUR_KEY">
-              <input type="hidden" name="subject" value="Nová poptávka z jt-auto.cz">
-              <input type="checkbox" name="botcheck" class="visually-hidden" tabindex="-1" autocomplete="off">
+            <form action="https://formsubmit.co/info@jt-auto.cz" method="POST" class="contact-form">
+              <input type="hidden" name="_subject" value="Nová poptávka z jt-auto.cz">
+              <input type="hidden" name="_captcha" value="false">
+              <input type="hidden" name="_next" value="https://jt-auto.cz/kontakt.html">
+              <input type="text" name="_honey" class="visually-hidden" tabindex="-1" autocomplete="off">
               <div class="form-group">
                 <label for="name" class="form-label">Jméno a příjmení</label>
                 <input type="text" id="name" name="name" class="form-input" required autocomplete="name" placeholder="Jan Novák">
@@ -116,6 +117,12 @@
               <div class="form-group">
                 <label for="message" class="form-label">Vaše zpráva</label>
                 <textarea id="message" name="message" class="form-textarea" rows="5" required placeholder="Hledám Mazda CX-5 do 500 000 Kč, rok 2019+, benzín..."></textarea>
+              </div>
+              <div class="form-group">
+                <label style="display:flex;align-items:flex-start;gap:0.5rem;cursor:pointer;font-weight:400;font-size:var(--text-sm);color:var(--color-text-muted);">
+                  <input type="checkbox" name="gdpr" required style="margin-top:0.25em;flex-shrink:0;">
+                  Souhlasím se <a href="ochrana-udaju.html" target="_blank">zpracováním osobních údajů</a>
+                </label>
               </div>
               <button type="submit" class="btn btn--primary btn--lg btn--magnetic">Odeslat poptávku</button>
             </form>
@@ -178,11 +185,31 @@
       </div>
     </div>
     <div class="site-footer__bottom container">
-      <p>&copy; 2026 JT Auto. Všechna práva vyhrazena.</p>
-      <div class="site-footer__social"></div>
+      <p>&copy; 2026 JT Auto. Všechna práva vyhrazena. | <a href="ochrana-udaju.html">Ochrana osobních údajů</a></p>
+      <div class="site-footer__social"><a href="admin.html" class="admin-link">Admin</a></div>
     </div>
   </footer>
 
+  <!-- Cookie consent -->
+  <div id="cookie-banner" class="cookie-banner">
+    <div class="cookie-banner__inner">
+      <div class="cookie-banner__text">Tento web používá cookies pro správný chod a zobrazení mapy. Více v <a href="ochrana-udaju.html">zásadách ochrany osobních údajů</a>.</div>
+      <div class="cookie-banner__actions">
+        <button class="btn btn--white btn--sm" id="cookie-accept">Rozumím</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/site-data.js"></script>
   <script src="js/main.js"></script>
+  <script>
+    if (!localStorage.getItem('jt_cookies_accepted')) {
+      setTimeout(() => document.getElementById('cookie-banner').classList.add('visible'), 1000);
+    }
+    document.getElementById('cookie-accept')?.addEventListener('click', () => {
+      localStorage.setItem('jt_cookies_accepted', 'true');
+      document.getElementById('cookie-banner').classList.remove('visible');
+    });
+  </script>
 </body>
 </html>

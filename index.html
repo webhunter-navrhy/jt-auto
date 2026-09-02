@@ -347,11 +347,31 @@
       </div>
     </div>
     <div class="site-footer__bottom container">
-      <p>&copy; 2026 JT Auto. Všechna práva vyhrazena.</p>
-      <div class="site-footer__social"></div>
+      <p>&copy; 2026 JT Auto. Všechna práva vyhrazena. | <a href="ochrana-udaju.html">Ochrana osobních údajů</a></p>
+      <div class="site-footer__social"><a href="admin.html" class="admin-link">Admin</a></div>
     </div>
   </footer>
 
+  <!-- Cookie consent -->
+  <div id="cookie-banner" class="cookie-banner">
+    <div class="cookie-banner__inner">
+      <div class="cookie-banner__text">Tento web používá cookies pro správný chod a zobrazení mapy. Více v <a href="ochrana-udaju.html">zásadách ochrany osobních údajů</a>.</div>
+      <div class="cookie-banner__actions">
+        <button class="btn btn--white btn--sm" id="cookie-accept">Rozumím</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/site-data.js"></script>
   <script src="js/main.js"></script>
+  <script>
+    if (!localStorage.getItem('jt_cookies_accepted')) {
+      setTimeout(() => document.getElementById('cookie-banner').classList.add('visible'), 1000);
+    }
+    document.getElementById('cookie-accept')?.addEventListener('click', () => {
+      localStorage.setItem('jt_cookies_accepted', 'true');
+      document.getElementById('cookie-banner').classList.remove('visible');
+    });
+  </script>
 </body>
 </html>
