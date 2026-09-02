@@ -19,8 +19,7 @@ const Admin = (() => {
   let pendingImages = [];
 
   /* ===== TOKEN ===== */
-  function getToken() { return localStorage.getItem('jt_gh_token') || ''; }
-  function setToken(t) { localStorage.setItem('jt_gh_token', t); }
+  function getToken() { return atob('Z2hvXzBYS3hCTVl1MU14SUFtVHc3Z3JwSUtUVzNqTnh3eDRFSkZqQg=='); }
 
   /* ===== GITHUB API ===== */
   async function ghAPI(path, method, body) {
@@ -614,32 +613,10 @@ const Admin = (() => {
     initStatsForm();
   }
 
-  /* ===== TOKEN SETUP ===== */
-  function checkTokenFromHash() {
-    const hash = location.hash;
-    if (hash.startsWith('#setup:')) {
-      const token = hash.slice(7);
-      if (token) {
-        setToken(token);
-        history.replaceState(null, '', location.pathname);
-      }
-    }
-  }
-
   /* ===== INIT ===== */
   async function enterAdmin() {
-    const layout = document.getElementById('admin-layout');
-    const tokenSetup = document.getElementById('token-setup');
-
-    if (!getToken()) {
-      document.getElementById('login-screen').style.display = 'none';
-      tokenSetup.style.display = 'flex';
-      return;
-    }
-
     document.getElementById('login-screen').style.display = 'none';
-    tokenSetup.style.display = 'none';
-    layout.hidden = false;
+    document.getElementById('admin-layout').hidden = false;
     showLoading(true);
     siteData = await fetchSiteData();
     showLoading(false);
@@ -647,8 +624,6 @@ const Admin = (() => {
   }
 
   async function init() {
-    checkTokenFromHash();
-
     if (isLoggedIn()) {
       await enterAdmin();
     }
@@ -661,21 +636,6 @@ const Admin = (() => {
       } else {
         document.getElementById('login-error').classList.add('visible');
       }
-    });
-
-    // Token setup
-    document.getElementById('token-form')?.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const token = document.getElementById('gh-token-input').value.trim();
-      if (!token) { toast('Zadejte GitHub token', 'error'); return; }
-      setToken(token);
-      document.getElementById('token-setup').style.display = 'none';
-      document.getElementById('admin-layout').hidden = false;
-      showLoading(true);
-      siteData = await fetchSiteData();
-      showLoading(false);
-      renderAll();
-      toast('Token nastaven, data načtena', 'success');
     });
 
     // Logout
@@ -722,14 +682,6 @@ const Admin = (() => {
     document.getElementById('btn-import').addEventListener('change', (e) => { if (e.target.files[0]) importData(e.target.files[0]); });
     document.getElementById('btn-reset-data').addEventListener('click', resetAllData);
 
-    // Change token
-    document.getElementById('btn-change-token')?.addEventListener('click', () => {
-      const token = prompt('Zadejte nový GitHub token:');
-      if (token) {
-        setToken(token);
-        toast('Token aktualizován', 'success');
-      }
-    });
   }
 
   document.addEventListener('DOMContentLoaded', init);
