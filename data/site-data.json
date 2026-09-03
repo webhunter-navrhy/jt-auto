@@ -4,12 +4,12 @@
       "id": "v1788439177884",
       "title": "795. MAZDA CX-5 2.0 SPORTS-LINE",
       "desc": "FULL LED , NAVIGACE, 19\" ALU MAZDAf",
-      "price": "449000",
+      "price": "449.000,-",
       "year": 2018,
       "km": "117000",
       "power": "121",
-      "fuel": "Benzín",
-      "transmission": "Manuál",
+      "fuel": "",
+      "transmission": "",
       "vin": "JMZKF6W7600665852",
       "status": "Skladem",
       "image": "assets/images/admin/v1788439177884_main.jpg",
@@ -105,13 +105,13 @@
     {
       "id": "v790",
       "title": "Mazda CX-5 2.0i Sports-Line",
-      "desc": "FULL LED, Navigace, TaÃÂ¾nÃÂ© zaÃÂÃÂ­zenÃÂ­, ServisnÃÂ­ knÃÂ­ÃÂ¾ka",
-      "price": "459 000 KÃÂ",
+      "desc": "FULL LED, Navigace, TaÃÂÃÂ¾nÃÂÃÂ© zaÃÂÃÂÃÂÃÂ­zenÃÂÃÂ­, ServisnÃÂÃÂ­ knÃÂÃÂ­ÃÂÃÂ¾ka",
+      "price": "459 000 KÃÂÃÂ",
       "year": 2018,
       "km": "115 000 km",
       "power": "121 kW",
-      "fuel": "BenzÃÂ­n",
-      "transmission": "ManuÃÂ¡l",
+      "fuel": "BenzÃÂÃÂ­n",
+      "transmission": "ManuÃÂÃÂ¡l",
       "vin": "JMZKF6W7600665852",
       "image": "assets/images/vehicle-790-mazda-cx5.jpg",
       "gallery": [
@@ -125,13 +125,13 @@
     {
       "id": "v785",
       "title": "Mazda CX-5 2.0i Kangei",
-      "desc": "FULL LED, Navigace, Tempomat, OriginÃÂ¡lnÃÂ­ taÃÂ¾nÃÂ© zaÃÂÃÂ­zenÃÂ­",
-      "price": "485 000 KÃÂ",
+      "desc": "FULL LED, Navigace, Tempomat, OriginÃÂÃÂ¡lnÃÂÃÂ­ taÃÂÃÂ¾nÃÂÃÂ© zaÃÂÃÂÃÂÃÂ­zenÃÂÃÂ­",
+      "price": "485 000 KÃÂÃÂ",
       "year": 2020,
       "km": "117 000 km",
       "power": "121 kW",
-      "fuel": "BenzÃÂ­n",
-      "transmission": "ManuÃÂ¡l",
+      "fuel": "BenzÃÂÃÂ­n",
+      "transmission": "ManuÃÂÃÂ¡l",
       "vin": "JMZKF6W7600862686",
       "image": "assets/images/vehicle-785-mazda-cx5.jpg",
       "gallery": [
@@ -144,14 +144,14 @@
     },
     {
       "id": "v782",
-      "title": "ÃÂ koda Fabia 1.2 TSI Joy Kombi",
-      "desc": "DigitÃÂ¡lnÃÂ­ klima, Tempomat, VyhÃÂÃÂ­vanÃÂ¡ sedadla, ServisnÃÂ­ knÃÂ­ÃÂ¾ka",
-      "price": "219 000 KÃÂ",
+      "title": "ÃÂÃÂ koda Fabia 1.2 TSI Joy Kombi",
+      "desc": "DigitÃÂÃÂ¡lnÃÂÃÂ­ klima, Tempomat, VyhÃÂÃÂÃÂÃÂ­vanÃÂÃÂ¡ sedadla, ServisnÃÂÃÂ­ knÃÂÃÂ­ÃÂÃÂ¾ka",
+      "price": "219 000 KÃÂÃÂ",
       "year": 2016,
       "km": "100 000 km",
       "power": "66 kW",
-      "fuel": "BenzÃÂ­n",
-      "transmission": "ManuÃÂ¡l",
+      "fuel": "BenzÃÂÃÂ­n",
+      "transmission": "ManuÃÂÃÂ¡l",
       "vin": "TMBJM6NJ5GZ197332",
       "image": "assets/images/vehicle-782-skoda-fabia.jpg",
       "gallery": [
@@ -164,18 +164,18 @@
     }
   ],
   "hero": {
-    "title": "ProvÃÂÃÂenÃÂ© vozy zÂ NÃÂmecka bezÂ starostÃÂ­",
-    "subtitle": "DovÃÂ¡ÃÂ¾ÃÂ­me peÃÂlivÃÂ vybranÃÂ© ojetÃÂ© vozy sÂ transparentnÃÂ­ historiÃÂ­. ÃÂ½ÃÂ¡dnÃÂ© stoÃÂenÃÂ© kilometry, ÃÂ¾ÃÂ¡dnÃÂ© skrytÃÂ© vady Ã¢ÂÂ jen fÃÂ©rovÃÂ½ pÃÂÃÂ­stup aÂ auta, kterÃÂ¡ bychom sami rÃÂ¡di ÃÂÃÂ­dili.",
-    "btn1Text": "ProhlÃÂ©dnout nabÃÂ­dku",
+    "title": "ProvÃÂÃÂÃÂÃÂenÃÂÃÂ© vozy zÃÂ NÃÂÃÂmecka bezÃÂ starostÃÂÃÂ­",
+    "subtitle": "DovÃÂÃÂ¡ÃÂÃÂ¾ÃÂÃÂ­me peÃÂÃÂlivÃÂÃÂ vybranÃÂÃÂ© ojetÃÂÃÂ© vozy sÃÂ transparentnÃÂÃÂ­ historiÃÂÃÂ­. ÃÂÃÂ½ÃÂÃÂ¡dnÃÂÃÂ© stoÃÂÃÂenÃÂÃÂ© kilometry, ÃÂÃÂ¾ÃÂÃÂ¡dnÃÂÃÂ© skrytÃÂÃÂ© vady ÃÂ¢ÃÂÃÂ jen fÃÂÃÂ©rovÃÂÃÂ½ pÃÂÃÂÃÂÃÂ­stup aÃÂ auta, kterÃÂÃÂ¡ bychom sami rÃÂÃÂ¡di ÃÂÃÂÃÂÃÂ­dili.",
+    "btn1Text": "ProhlÃÂÃÂ©dnout nabÃÂÃÂ­dku",
     "btn2Text": "Jak funguje dovoz",
-    "badge": "790+ ÃÂºspÃÂÃÂ¡nÃÂ prodanÃÂ½ch vozÃÂ¯ ÃÂ· 10+ let na trhu"
+    "badge": "790+ ÃÂÃÂºspÃÂÃÂÃÂÃÂ¡nÃÂÃÂ prodanÃÂÃÂ½ch vozÃÂÃÂ¯ ÃÂÃÂ· 10+ let na trhu"
   },
   "contact": {
-    "name": "Jan TomÃÂ¡ÃÂ¡ek",
+    "name": "Jan TomÃÂÃÂ¡ÃÂÃÂ¡ek",
     "phone": "+420 776 210 220",
     "email": "info@jt-auto.cz",
-    "address": "VÃÂ¡clavskÃÂ¡ 1114, Chrudim 2, 537 01",
-    "showroom": "DaÃÂ¡ickÃÂ¡ 146, Chrudim, 537 01",
+    "address": "VÃÂÃÂ¡clavskÃÂÃÂ¡ 1114, Chrudim 2, 537 01",
+    "showroom": "DaÃÂÃÂ¡ickÃÂÃÂ¡ 146, Chrudim, 537 01",
     "ico": "74412183",
     "dic": "CZ7906223127"
   },
