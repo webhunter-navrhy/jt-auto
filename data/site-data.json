@@ -3,13 +3,13 @@
     {
       "id": "v1788439177884",
       "title": "795. MAZDA CX-5 2.0 SPORTS-LINE",
-      "desc": "FULL LED , NAVIGACE, 19\" ALU MAZDA",
+      "desc": "FULL LED , NAVIGACE, 19\" ALU MAZDAf",
       "price": "449000",
       "year": 2018,
       "km": "117000",
       "power": "121",
-      "fuel": "Benzín",
-      "transmission": "Manuál",
+      "fuel": "",
+      "transmission": "",
       "vin": "JMZKF6W7600665852",
       "status": "Skladem",
       "image": "assets/images/admin/v1788439177884_main.jpg",
@@ -105,13 +105,13 @@
     {
       "id": "v790",
       "title": "Mazda CX-5 2.0i Sports-Line",
-      "desc": "FULL LED, Navigace, TaÅ¾nÃ© zaÅÃ­zenÃ­, ServisnÃ­ knÃ­Å¾ka",
-      "price": "459 000 KÄ",
+      "desc": "FULL LED, Navigace, TaÃÂ¾nÃÂ© zaÃÂÃÂ­zenÃÂ­, ServisnÃÂ­ knÃÂ­ÃÂ¾ka",
+      "price": "459 000 KÃÂ",
       "year": 2018,
       "km": "115 000 km",
       "power": "121 kW",
-      "fuel": "BenzÃ­n",
-      "transmission": "ManuÃ¡l",
+      "fuel": "BenzÃÂ­n",
+      "transmission": "ManuÃÂ¡l",
       "vin": "JMZKF6W7600665852",
       "image": "assets/images/vehicle-790-mazda-cx5.jpg",
       "gallery": [
@@ -125,13 +125,13 @@
     {
       "id": "v785",
       "title": "Mazda CX-5 2.0i Kangei",
-      "desc": "FULL LED, Navigace, Tempomat, OriginÃ¡lnÃ­ taÅ¾nÃ© zaÅÃ­zenÃ­",
-      "price": "485 000 KÄ",
+      "desc": "FULL LED, Navigace, Tempomat, OriginÃÂ¡lnÃÂ­ taÃÂ¾nÃÂ© zaÃÂÃÂ­zenÃÂ­",
+      "price": "485 000 KÃÂ",
       "year": 2020,
       "km": "117 000 km",
       "power": "121 kW",
-      "fuel": "BenzÃ­n",
-      "transmission": "ManuÃ¡l",
+      "fuel": "BenzÃÂ­n",
+      "transmission": "ManuÃÂ¡l",
       "vin": "JMZKF6W7600862686",
       "image": "assets/images/vehicle-785-mazda-cx5.jpg",
       "gallery": [
@@ -144,14 +144,14 @@
     },
     {
       "id": "v782",
-      "title": "Å koda Fabia 1.2 TSI Joy Kombi",
-      "desc": "DigitÃ¡lnÃ­ klima, Tempomat, VyhÅÃ­vanÃ¡ sedadla, ServisnÃ­ knÃ­Å¾ka",
-      "price": "219 000 KÄ",
+      "title": "ÃÂ koda Fabia 1.2 TSI Joy Kombi",
+      "desc": "DigitÃÂ¡lnÃÂ­ klima, Tempomat, VyhÃÂÃÂ­vanÃÂ¡ sedadla, ServisnÃÂ­ knÃÂ­ÃÂ¾ka",
+      "price": "219 000 KÃÂ",
       "year": 2016,
       "km": "100 000 km",
       "power": "66 kW",
-      "fuel": "BenzÃ­n",
-      "transmission": "ManuÃ¡l",
+      "fuel": "BenzÃÂ­n",
+      "transmission": "ManuÃÂ¡l",
       "vin": "TMBJM6NJ5GZ197332",
       "image": "assets/images/vehicle-782-skoda-fabia.jpg",
       "gallery": [
@@ -164,18 +164,18 @@
     }
   ],
   "hero": {
-    "title": "ProvÄÅenÃ© vozy z NÄmecka bez starostÃ­",
-    "subtitle": "DovÃ¡Å¾Ã­me peÄlivÄ vybranÃ© ojetÃ© vozy s transparentnÃ­ historiÃ­. Å½Ã¡dnÃ© stoÄenÃ© kilometry, Å¾Ã¡dnÃ© skrytÃ© vady â jen fÃ©rovÃ½ pÅÃ­stup a auta, kterÃ¡ bychom sami rÃ¡di ÅÃ­dili.",
-    "btn1Text": "ProhlÃ©dnout nabÃ­dku",
+    "title": "ProvÃÂÃÂenÃÂ© vozy zÂ NÃÂmecka bezÂ starostÃÂ­",
+    "subtitle": "DovÃÂ¡ÃÂ¾ÃÂ­me peÃÂlivÃÂ vybranÃÂ© ojetÃÂ© vozy sÂ transparentnÃÂ­ historiÃÂ­. ÃÂ½ÃÂ¡dnÃÂ© stoÃÂenÃÂ© kilometry, ÃÂ¾ÃÂ¡dnÃÂ© skrytÃÂ© vady Ã¢ÂÂ jen fÃÂ©rovÃÂ½ pÃÂÃÂ­stup aÂ auta, kterÃÂ¡ bychom sami rÃÂ¡di ÃÂÃÂ­dili.",
+    "btn1Text": "ProhlÃÂ©dnout nabÃÂ­dku",
     "btn2Text": "Jak funguje dovoz",
-    "badge": "790+ ÃºspÄÅ¡nÄ prodanÃ½ch vozÅ¯ Â· 10+ let na trhu"
+    "badge": "790+ ÃÂºspÃÂÃÂ¡nÃÂ prodanÃÂ½ch vozÃÂ¯ ÃÂ· 10+ let na trhu"
   },
   "contact": {
-    "name": "Jan TomÃ¡Å¡ek",
+    "name": "Jan TomÃÂ¡ÃÂ¡ek",
     "phone": "+420 776 210 220",
     "email": "info@jt-auto.cz",
-    "address": "VÃ¡clavskÃ¡ 1114, Chrudim 2, 537 01",
-    "showroom": "DaÅ¡ickÃ¡ 146, Chrudim, 537 01",
+    "address": "VÃÂ¡clavskÃÂ¡ 1114, Chrudim 2, 537 01",
+    "showroom": "DaÃÂ¡ickÃÂ¡ 146, Chrudim, 537 01",
     "ico": "74412183",
     "dic": "CZ7906223127"
   },
