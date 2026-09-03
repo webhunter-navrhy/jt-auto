@@ -43,7 +43,12 @@ const Admin = (() => {
       const resp = await ghAPI('contents/' + CFG.dataPath + '?ref=' + CFG.branch);
       if (!resp.ok) return defaultData();
       const json = await resp.json();
-      return JSON.parse(atob(json.content));
+      // Proper UTF-8 decoding (atob only handles Latin-1, corrupts Czech chars)
+      const binary = atob(json.content.replace(/\s/g, ''));
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+      const text = new TextDecoder('utf-8').decode(bytes);
+      return JSON.parse(text);
     } catch {
       return defaultData();
     }

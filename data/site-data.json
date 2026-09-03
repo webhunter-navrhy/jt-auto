@@ -3,13 +3,13 @@
     {
       "id": "v1788439177884",
       "title": "795. MAZDA CX-5 2.0 SPORTS-LINE",
-      "desc": "FULL LED , NAVIGACE, 19\" ALU MAZDAf",
-      "price": "449.000,-",
+      "desc": "FULL LED, NAVIGACE, 19\" ALU MAZDA",
+      "price": "449 000 Kč",
       "year": 2018,
-      "km": "117000",
-      "power": "121",
-      "fuel": "",
-      "transmission": "",
+      "km": "117 000 km",
+      "power": "121 kW",
+      "fuel": "Benzín",
+      "transmission": "Manuál",
       "vin": "JMZKF6W7600665852",
       "status": "Skladem",
       "image": "assets/images/admin/v1788439177884_main.jpg",
@@ -105,13 +105,13 @@
     {
       "id": "v790",
       "title": "Mazda CX-5 2.0i Sports-Line",
-      "desc": "FULL LED, Navigace, TaÃÂÃÂ¾nÃÂÃÂ© zaÃÂÃÂÃÂÃÂ­zenÃÂÃÂ­, ServisnÃÂÃÂ­ knÃÂÃÂ­ÃÂÃÂ¾ka",
-      "price": "459 000 KÃÂÃÂ",
+      "desc": "FULL LED, Navigace, Tažné zařízení, Servisní knížka",
+      "price": "459 000 Kč",
       "year": 2018,
       "km": "115 000 km",
       "power": "121 kW",
-      "fuel": "BenzÃÂÃÂ­n",
-      "transmission": "ManuÃÂÃÂ¡l",
+      "fuel": "Benzín",
+      "transmission": "Manuál",
       "vin": "JMZKF6W7600665852",
       "image": "assets/images/vehicle-790-mazda-cx5.jpg",
       "gallery": [
@@ -125,13 +125,13 @@
     {
       "id": "v785",
       "title": "Mazda CX-5 2.0i Kangei",
-      "desc": "FULL LED, Navigace, Tempomat, OriginÃÂÃÂ¡lnÃÂÃÂ­ taÃÂÃÂ¾nÃÂÃÂ© zaÃÂÃÂÃÂÃÂ­zenÃÂÃÂ­",
-      "price": "485 000 KÃÂÃÂ",
+      "desc": "FULL LED, Navigace, Tempomat, Originální tažné zařízení",
+      "price": "485 000 Kč",
       "year": 2020,
       "km": "117 000 km",
       "power": "121 kW",
-      "fuel": "BenzÃÂÃÂ­n",
-      "transmission": "ManuÃÂÃÂ¡l",
+      "fuel": "Benzín",
+      "transmission": "Manuál",
       "vin": "JMZKF6W7600862686",
       "image": "assets/images/vehicle-785-mazda-cx5.jpg",
       "gallery": [
@@ -144,14 +144,14 @@
     },
     {
       "id": "v782",
-      "title": "ÃÂÃÂ koda Fabia 1.2 TSI Joy Kombi",
-      "desc": "DigitÃÂÃÂ¡lnÃÂÃÂ­ klima, Tempomat, VyhÃÂÃÂÃÂÃÂ­vanÃÂÃÂ¡ sedadla, ServisnÃÂÃÂ­ knÃÂÃÂ­ÃÂÃÂ¾ka",
-      "price": "219 000 KÃÂÃÂ",
+      "title": "Škoda Fabia 1.2 TSI Joy Kombi",
+      "desc": "Digitální klima, Tempomat, Vyhřívaná sedadla, Servisní knížka",
+      "price": "219 000 Kč",
       "year": 2016,
       "km": "100 000 km",
       "power": "66 kW",
-      "fuel": "BenzÃÂÃÂ­n",
-      "transmission": "ManuÃÂÃÂ¡l",
+      "fuel": "Benzín",
+      "transmission": "Manuál",
       "vin": "TMBJM6NJ5GZ197332",
       "image": "assets/images/vehicle-782-skoda-fabia.jpg",
       "gallery": [
@@ -164,18 +164,18 @@
     }
   ],
   "hero": {
-    "title": "ProvÃÂÃÂÃÂÃÂenÃÂÃÂ© vozy zÃÂ NÃÂÃÂmecka bezÃÂ starostÃÂÃÂ­",
-    "subtitle": "DovÃÂÃÂ¡ÃÂÃÂ¾ÃÂÃÂ­me peÃÂÃÂlivÃÂÃÂ vybranÃÂÃÂ© ojetÃÂÃÂ© vozy sÃÂ transparentnÃÂÃÂ­ historiÃÂÃÂ­. ÃÂÃÂ½ÃÂÃÂ¡dnÃÂÃÂ© stoÃÂÃÂenÃÂÃÂ© kilometry, ÃÂÃÂ¾ÃÂÃÂ¡dnÃÂÃÂ© skrytÃÂÃÂ© vady ÃÂ¢ÃÂÃÂ jen fÃÂÃÂ©rovÃÂÃÂ½ pÃÂÃÂÃÂÃÂ­stup aÃÂ auta, kterÃÂÃÂ¡ bychom sami rÃÂÃÂ¡di ÃÂÃÂÃÂÃÂ­dili.",
-    "btn1Text": "ProhlÃÂÃÂ©dnout nabÃÂÃÂ­dku",
+    "title": "Prověřené vozy z\u00a0Německa bez\u00a0starostí",
+    "subtitle": "Dovážíme pečlivě vybrané ojeté vozy s\u00a0transparentní historií. Žádné stočené kilometry, žádné skryté vady — jen férový přístup a\u00a0auta, která bychom sami rádi řídili.",
+    "btn1Text": "Prohlédnout nabídku",
     "btn2Text": "Jak funguje dovoz",
-    "badge": "790+ ÃÂÃÂºspÃÂÃÂÃÂÃÂ¡nÃÂÃÂ prodanÃÂÃÂ½ch vozÃÂÃÂ¯ ÃÂÃÂ· 10+ let na trhu"
+    "badge": "790+ úspěšně prodaných vozů · 10+ let na trhu"
   },
   "contact": {
-    "name": "Jan TomÃÂÃÂ¡ÃÂÃÂ¡ek",
+    "name": "Jan Tomášek",
     "phone": "+420 776 210 220",
     "email": "info@jt-auto.cz",
-    "address": "VÃÂÃÂ¡clavskÃÂÃÂ¡ 1114, Chrudim 2, 537 01",
-    "showroom": "DaÃÂÃÂ¡ickÃÂÃÂ¡ 146, Chrudim, 537 01",
+    "address": "Václavská 1114, Chrudim 2, 537 01",
+    "showroom": "Dašická 146, Chrudim, 537 01",
     "ico": "74412183",
     "dic": "CZ7906223127"
   },
