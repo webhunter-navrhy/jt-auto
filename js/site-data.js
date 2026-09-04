@@ -162,7 +162,7 @@
         container.innerHTML = `
           <div class="vehicle-detail">
             <div class="vehicle-detail__main-img">
-              ${v.image ? `<img src="${esc(v.image)}" alt="${esc(v.title)}" width="1200" height="800">` : ''}
+              ${v.image ? `<a href="${esc(v.image)}" data-lightbox style="cursor:zoom-in;display:block"><img src="${esc(v.image)}" alt="${esc(v.title)}" width="1200" height="800"></a>` : ''}
               <span class="vehicle-card__badge vehicle-card__badge--lg">${esc(v.status)}</span>
             </div>
             <div class="vehicle-detail__info">

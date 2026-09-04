@@ -264,7 +264,7 @@ const Admin = (() => {
     if (soldCount) soldCount.textContent = sold.length;
 
     if (!active.length) {
-      listActive.innerHTML = '<div class="admin-empty"><p>Žádná vozidla v nabídce.</p><button class="admin-btn admin-btn--primary" onclick="Admin.openVehicleModal()">Přidat první vůz</button></div>';
+      listActive.innerHTML = '<div class="admin-empty"><p>Žádná vozidla v nabídce.</p><button class="admin-btn admin-btn--primary" data-action="add">Přidat první vůz</button></div>';
     } else {
       listActive.innerHTML = active.map(v => vehicleItemHtml(v, false)).join('');
     }
@@ -274,6 +274,8 @@ const Admin = (() => {
     } else {
       listSold.innerHTML = sold.map(v => vehicleItemHtml(v, true)).join('');
     }
+
+    bindVehicleActions();
   }
 
   function vehicleItemHtml(v, isSold) {
@@ -282,18 +284,33 @@ const Admin = (() => {
     const statusColor = statusColors[v.status] || 'inherit';
 
     const actions = isSold ?
-      '<button class="admin-btn admin-btn--secondary admin-btn--sm" onclick="Admin.restoreVehicle(\'' + v.id + '\')" title="Vrátit do nabídky">Obnovit</button>' +
-      '<button class="admin-btn admin-btn--danger admin-btn--sm admin-btn--icon" onclick="Admin.deleteVehicle(\'' + v.id + '\')" title="Smazat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>'
+      '<button class="admin-btn admin-btn--secondary admin-btn--sm" data-action="restore" data-id="' + v.id + '">Obnovit</button>' +
+      '<button class="admin-btn admin-btn--danger admin-btn--sm admin-btn--icon" data-action="delete" data-id="' + v.id + '" title="Smazat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>'
     :
-      '<button class="admin-btn admin-btn--secondary admin-btn--sm" onclick="Admin.editVehicle(\'' + v.id + '\')">Upravit</button>' +
-      '<button class="admin-btn admin-btn--sold admin-btn--sm" onclick="Admin.markAsSold(\'' + v.id + '\')" title="Označit jako prodané"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg> Prodáno</button>' +
-      '<button class="admin-btn admin-btn--danger admin-btn--sm admin-btn--icon" onclick="Admin.deleteVehicle(\'' + v.id + '\')" title="Smazat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>';
+      '<button class="admin-btn admin-btn--secondary admin-btn--sm" data-action="edit" data-id="' + v.id + '">Upravit</button>' +
+      '<button class="admin-btn admin-btn--sold admin-btn--sm" data-action="sold" data-id="' + v.id + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg> Prodáno</button>' +
+      '<button class="admin-btn admin-btn--danger admin-btn--sm admin-btn--icon" data-action="delete" data-id="' + v.id + '" title="Smazat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>';
 
     return '<div class="vehicle-item">' +
       (imgSrc ? '<img class="vehicle-item__img" src="' + esc(imgSrc) + '" alt="' + esc(v.title) + '">' : '<div class="vehicle-item__img vehicle-item__img--empty"></div>') +
       '<div class="vehicle-item__info"><div class="vehicle-item__title">' + esc(v.title) + '</div><div class="vehicle-item__meta">' + v.year + ' · ' + esc(v.km) + ' · ' + esc(v.fuel) + ' · <span style="color:' + statusColor + ';font-weight:600">' + esc(v.status) + '</span>' + (v.soldDate ? ' · ' + v.soldDate : '') + '</div></div>' +
       '<div class="vehicle-item__price">' + esc(v.price) + '</div>' +
       '<div class="vehicle-item__actions">' + actions + '</div></div>';
+  }
+
+  function bindVehicleActions() {
+    document.querySelectorAll('[data-action]').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const action = this.dataset.action;
+        const id = this.dataset.id;
+        if (action === 'edit') openVehicleModal(id);
+        else if (action === 'sold') markAsSold(id);
+        else if (action === 'delete') deleteVehicle(id);
+        else if (action === 'restore') restoreVehicle(id);
+        else if (action === 'add') openVehicleModal();
+      });
+    });
   }
 
   /* ===== MARK AS SOLD ===== */
