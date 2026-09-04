@@ -99,7 +99,7 @@
       "fuel": "Benzín",
       "transmission": "Manuál",
       "vin": "JMZGL697601800155",
-      "status": "Skladem",
+      "status": "Prodáno",
       "image": "assets/images/admin/v1788525296236_main.jpg",
       "gallery": [
         "assets/images/admin/v1788525296236_g0.jpg",
@@ -185,7 +185,8 @@
         "assets/images/admin/v1788525296236_g80.jpg",
         "assets/images/admin/v1788525296236_g81.jpg",
         "assets/images/admin/v1788525296236_g82.jpg"
-      ]
+      ],
+      "soldDate": "4. 9. 2026"
     },
     {
       "id": "v790",
