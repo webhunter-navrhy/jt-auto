@@ -12,7 +12,7 @@
       "fuel": "Benzín",
       "transmission": "Manuál",
       "vin": "JMZKF6W7600665852",
-      "status": "Skladem",
+      "status": "Prodáno",
       "image": "assets/images/admin/v1788503141596_main.jpg",
       "gallery": [
         "assets/images/admin/v1788503141596_g0.jpg",
@@ -85,7 +85,8 @@
         "assets/images/admin/v1788503141596_g67.jpg",
         "assets/images/admin/v1788503141596_g68.jpg",
         "assets/images/admin/v1788503141596_g69.jpg"
-      ]
+      ],
+      "soldDate": "4. 9. 2026"
     },
     {
       "id": "v1788439177884",
@@ -98,7 +99,7 @@
       "fuel": "Benzín",
       "transmission": "Manuál",
       "vin": "JMZKF6W7600665852",
-      "status": "Skladem",
+      "status": "Prodáno",
       "image": "assets/images/admin/v1788439177884_main.jpg",
       "gallery": [
         "assets/images/admin/v1788439177884_g0.jpg",
@@ -187,7 +188,8 @@
         "assets/images/admin/v1788439177884_g83.jpg",
         "assets/images/admin/v1788439177884_g84.jpg",
         "assets/images/admin/v1788439177884_g85.jpg"
-      ]
+      ],
+      "soldDate": "4. 9. 2026"
     },
     {
       "id": "v790",
