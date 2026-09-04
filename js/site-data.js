@@ -66,7 +66,6 @@
             <article class="vehicle-card card--lift stagger-item is-visible">
               <div class="vehicle-card__img img-overlay">
                 ${v.image ? `<img src="${esc(v.image)}" alt="${esc(v.title)}" width="800" height="533" loading="lazy">` : ''}
-                <span class="vehicle-card__badge">${esc(v.status)}</span>
               </div>
               <div class="vehicle-card__body">
                 <h3 class="vehicle-card__title">${esc(v.title)}</h3>
@@ -106,7 +105,6 @@
               <a href="vozidlo.html?id=${v.id}" class="vehicle-card__link">
                 <div class="vehicle-card__img img-overlay">
                   ${v.image ? `<img src="${esc(v.image)}" alt="${esc(v.title)}" width="800" height="533" loading="lazy">` : ''}
-                  <span class="vehicle-card__badge">${esc(v.status)}</span>
                 </div>
                 <div class="vehicle-card__body">
                   <h2 class="vehicle-card__title">${esc(v.title)}</h2>
@@ -163,7 +161,6 @@
           <div class="vehicle-detail">
             <div class="vehicle-detail__main-img">
               ${v.image ? `<a href="${esc(v.image)}" data-lightbox style="cursor:zoom-in;display:block"><img src="${esc(v.image)}" alt="${esc(v.title)}" width="1200" height="800"></a>` : ''}
-              <span class="vehicle-card__badge vehicle-card__badge--lg">${esc(v.status)}</span>
             </div>
             <div class="vehicle-detail__info">
               <h2 class="vehicle-detail__title">${esc(v.title)}</h2>
