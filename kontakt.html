@@ -97,11 +97,7 @@
             <span class="section-label">Napište nám</span>
             <h2 class="mb-md">Poptejte vůz nebo se zeptejte</h2>
             <p class="mb-lg">Popište, jaký vůz hledáte — značku, model, rozpočet, rok. Ozveme se do 24&nbsp;hodin.</p>
-            <form action="https://formsubmit.co/j.tomasek@centrum.cz" method="POST" class="contact-form">
-              <input type="hidden" name="_subject" value="Nová poptávka z jt-auto.cz">
-              <input type="hidden" name="_captcha" value="false">
-              <input type="hidden" name="_next" value="https://jt-auto.cz/kontakt.html?sent=1">
-              <input type="text" name="_honey" class="visually-hidden" tabindex="-1" autocomplete="off">
+            <form id="contact-form-main" class="contact-form">
               <div class="form-group">
                 <label for="name" class="form-label">Jméno a příjmení</label>
                 <input type="text" id="name" name="name" class="form-input" required autocomplete="name" placeholder="Jan Novák">
@@ -125,6 +121,7 @@
                 </label>
               </div>
               <button type="submit" class="btn btn--primary btn--lg btn--magnetic">Odeslat poptávku</button>
+              <div id="form-status" style="margin-top:1rem;display:none"></div>
             </form>
           </div>
           <div data-reveal="right" data-delay="200">
@@ -203,13 +200,25 @@
   <script src="js/site-data.js?v=20260904d"></script>
   <script src="js/main.js?v=20260904d"></script>
   <script>
-    // Form success feedback
-    if (new URLSearchParams(location.search).get('sent') === '1') {
-      const form = document.querySelector('.contact-form');
-      if (form) {
-        form.innerHTML = '<div class="form-success"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 1rem;display:block"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Zpráva odeslána!<br><span style="font-weight:400;font-size:0.9rem;color:var(--color-text-muted)">Ozveme se vám do 24 hodin.</span></div>';
-        history.replaceState(null, '', 'kontakt.html');
-      }
+    // Contact form — sends via mailto (no third-party service needed)
+    var cform = document.getElementById('contact-form-main');
+    if (cform) {
+      cform.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var name = cform.querySelector('[name="name"]').value;
+        var email = cform.querySelector('[name="email"]').value;
+        var phone = cform.querySelector('[name="phone"]').value || 'neuvedeno';
+        var message = cform.querySelector('[name="message"]').value;
+        var subject = 'Poptávka z jt-auto.cz — ' + name;
+        var body = 'Jméno: ' + name + '\n' +
+                   'Email: ' + email + '\n' +
+                   'Telefon: ' + phone + '\n\n' +
+                   'Zpráva:\n' + message;
+        window.location.href = 'mailto:j.tomasek@centrum.cz?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        var status = document.getElementById('form-status');
+        status.style.display = 'block';
+        status.innerHTML = '<div style="padding:1rem;background:var(--color-primary-light);border-radius:8px;text-align:center"><strong>Otevře se vám emailový klient.</strong><br>Pokud se nic neotevřelo, napište přímo na <a href="mailto:j.tomasek@centrum.cz">j.tomasek@centrum.cz</a> nebo zavolejte <a href="tel:+420776210220">+420 776 210 220</a>.</div>';
+      });
     }
 
     if (!localStorage.getItem('jt_cookies_accepted')) {
