@@ -131,7 +131,7 @@ if (lbDialog) {
     if (lbPrev) lbPrev.style.display = idx > 0 ? '' : 'none';
     if (lbNext) lbNext.style.display = idx < items.length - 1 ? '' : 'none';
     if (lbCounter) lbCounter.textContent = (idx + 1) + ' / ' + items.length;
-    lbDialog.showModal();
+    if (!lbDialog.open) lbDialog.showModal();
   }
 
   items.forEach((el, i) => {
@@ -141,8 +141,8 @@ if (lbDialog) {
 
   lbDialog.addEventListener('click', e => { if (e.target === lbDialog) lbDialog.close(); });
   lbDialog.querySelector('.lightbox__close')?.addEventListener('click', () => lbDialog.close());
-  if (lbPrev) lbPrev.addEventListener('click', () => { if (currentIdx > 0) showLightbox(currentIdx - 1); });
-  if (lbNext) lbNext.addEventListener('click', () => { if (currentIdx < items.length - 1) showLightbox(currentIdx + 1); });
+  if (lbPrev) lbPrev.addEventListener('click', (e) => { e.stopPropagation(); if (currentIdx > 0) showLightbox(currentIdx - 1); });
+  if (lbNext) lbNext.addEventListener('click', (e) => { e.stopPropagation(); if (currentIdx < items.length - 1) showLightbox(currentIdx + 1); });
 
   document.addEventListener('keydown', e => {
     if (!lbDialog.open) return;

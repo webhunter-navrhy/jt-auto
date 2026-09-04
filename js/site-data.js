@@ -276,6 +276,7 @@
     const counter = dlg.querySelector('.lightbox__counter');
     const items = [...document.querySelectorAll('[data-lightbox]')];
     let idx = 0;
+
     function show(i) {
       idx = i;
       const el = items[i];
@@ -284,19 +285,20 @@
       if (prevBtn) prevBtn.style.display = i > 0 ? '' : 'none';
       if (nextBtn) nextBtn.style.display = i < items.length - 1 ? '' : 'none';
       if (counter) counter.textContent = (i + 1) + ' / ' + items.length;
-      dlg.showModal();
+      if (!dlg.open) dlg.showModal();
     }
+
     items.forEach((el, i) => { el.style.cursor = 'zoom-in'; el.onclick = (e) => { e.preventDefault(); show(i); }; });
     dlg.onclick = (e) => { if (e.target === dlg) dlg.close(); };
     dlg.querySelector('.lightbox__close').onclick = () => dlg.close();
-    if (prevBtn) prevBtn.onclick = () => { if (idx > 0) show(idx - 1); };
-    if (nextBtn) nextBtn.onclick = () => { if (idx < items.length - 1) show(idx + 1); };
+    if (prevBtn) prevBtn.onclick = (e) => { e.stopPropagation(); if (idx > 0) show(idx - 1); };
+    if (nextBtn) nextBtn.onclick = (e) => { e.stopPropagation(); if (idx < items.length - 1) show(idx + 1); };
     document.addEventListener('keydown', (e) => {
       if (!dlg.open) return;
       if (e.key === 'ArrowRight' && idx < items.length - 1) show(idx + 1);
       if (e.key === 'ArrowLeft' && idx > 0) show(idx - 1);
     });
-    // Touch swipe support
+    // Touch swipe
     let touchStartX = 0;
     dlg.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
     dlg.addEventListener('touchend', (e) => {
