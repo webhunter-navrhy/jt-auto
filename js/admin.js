@@ -283,13 +283,14 @@ const Admin = (() => {
     const statusColors = { 'Skladem':'var(--admin-success)', 'Rezervováno':'var(--admin-warning)', 'Prodáno':'var(--admin-text-muted)' };
     const statusColor = statusColors[v.status] || 'inherit';
 
+    const vid = v.id;
     const actions = isSold ?
-      '<button class="admin-btn admin-btn--secondary admin-btn--sm" data-action="restore" data-id="' + v.id + '">Obnovit</button>' +
-      '<button class="admin-btn admin-btn--danger admin-btn--sm admin-btn--icon" data-action="delete" data-id="' + v.id + '" title="Smazat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>'
+      '<button class="admin-btn admin-btn--secondary admin-btn--sm" data-action="restore" data-id="' + vid + '" onclick="Admin.restoreVehicle(\'' + vid + '\')">Obnovit</button>' +
+      '<button class="admin-btn admin-btn--danger admin-btn--sm admin-btn--icon" data-action="delete" data-id="' + vid + '" onclick="Admin.deleteVehicle(\'' + vid + '\')" title="Smazat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="pointer-events:none"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>'
     :
-      '<button class="admin-btn admin-btn--secondary admin-btn--sm" data-action="edit" data-id="' + v.id + '">Upravit</button>' +
-      '<button class="admin-btn admin-btn--sold admin-btn--sm" data-action="sold" data-id="' + v.id + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg> Prodáno</button>' +
-      '<button class="admin-btn admin-btn--danger admin-btn--sm admin-btn--icon" data-action="delete" data-id="' + v.id + '" title="Smazat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>';
+      '<button class="admin-btn admin-btn--secondary admin-btn--sm" data-action="edit" data-id="' + vid + '" onclick="Admin.editVehicle(\'' + vid + '\')">Upravit</button>' +
+      '<button class="admin-btn admin-btn--sold admin-btn--sm" data-action="sold" data-id="' + vid + '" onclick="Admin.markAsSold(\'' + vid + '\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="pointer-events:none"><polyline points="20 6 9 17 4 12"/></svg> Prodáno</button>' +
+      '<button class="admin-btn admin-btn--danger admin-btn--sm admin-btn--icon" data-action="delete" data-id="' + vid + '" onclick="Admin.deleteVehicle(\'' + vid + '\')" title="Smazat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="pointer-events:none"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>';
 
     return '<div class="vehicle-item">' +
       (imgSrc ? '<img class="vehicle-item__img" src="' + esc(imgSrc) + '" alt="' + esc(v.title) + '">' : '<div class="vehicle-item__img vehicle-item__img--empty"></div>') +
