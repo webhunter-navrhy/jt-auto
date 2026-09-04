@@ -99,7 +99,7 @@
       "fuel": "Benzín",
       "transmission": "Manuál",
       "vin": "JMZGL697601800155",
-      "status": "Prodáno",
+      "status": "Skladem",
       "image": "assets/images/admin/v1788525296236_main.jpg",
       "gallery": [
         "assets/images/admin/v1788525296236_g0.jpg",
@@ -185,14 +185,13 @@
         "assets/images/admin/v1788525296236_g80.jpg",
         "assets/images/admin/v1788525296236_g81.jpg",
         "assets/images/admin/v1788525296236_g82.jpg"
-      ],
-      "soldDate": "4. 9. 2026"
+      ]
     },
     {
       "id": "v790",
       "title": "790. MAZDA CX-5 2.0i SPORTS-LINE",
       "desc": "FULL LED, NAVIGACE, TAŽNÉ ZAŘÍZENÍ",
-      "description": "Automatická dvouzónová klimatizace, esp, tempomat, 6x airbag, head-up display, 19\" alu kola Mazda, full led světlomety, led denní svícení, hlídání mrtvého úhlu, asistent nárazu, asistent rozjezdu v kopci, hlídání v pruzích, hlídání mrtvého úhlu, tempomat, parkovací kamera, parkovací senzory vzadu, parkovací senzory vpředu....",
+      "description": "Automatická dvouzónová klimatizace, esp, tempomat, 6x airbag, head-up display, 19\" alu kola Mazda, full led světlomety, led denní svícení, hlídání mrtvého úhlu, asistent nárazu, asistent rozjezdu v kopci, hlídání v pruzích, hlídání mrtvého úhlu, tempomat, parkovací kamera, parkovací senzory vzadu, parkovací senzory vpředu....\nDovezeno z Německa po 1. majiteli.\n\nPravidelně servisováno v autorizovaném servisu Mazda!\n\nPoslední servisní prohlídka 01.06.2026 ve 113726 km. Nehavarováno -- Nelakováno.\n\nV perfektním stavu.",
       "price": "449.000,- Kč",
       "year": 2018,
       "km": "115 000 km",
