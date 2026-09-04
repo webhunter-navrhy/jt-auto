@@ -100,8 +100,7 @@
 
           for (const v of inStock) {
             const card = document.createElement('article');
-            card.className = 'vehicle-card card--lift';
-            card.setAttribute('data-reveal', '');
+            card.className = 'vehicle-card card--lift revealed';
 
             card.innerHTML = `
               <a href="vozidlo.html?id=${v.id}" class="vehicle-card__link">
@@ -155,7 +154,7 @@
         ).join('');
 
         container.innerHTML = `
-          <div class="vehicle-detail" data-reveal>
+          <div class="vehicle-detail">
             <div class="vehicle-detail__main-img">
               ${v.image ? `<img src="${esc(v.image)}" alt="${esc(v.title)}" width="1200" height="800">` : ''}
               <span class="vehicle-card__badge vehicle-card__badge--lg">${esc(v.status)}</span>
@@ -182,7 +181,7 @@
           </div>
 
           ${galleryHtml ? `
-          <div class="vehicle-detail__gallery" data-reveal>
+          <div class="vehicle-detail__gallery">
             <h3>Fotogalerie <span class="text-muted">(${v.gallery.length} fotek)</span></h3>
             <div class="gallery-grid gallery-grid--detail">${galleryHtml}</div>
           </div>` : ''}
