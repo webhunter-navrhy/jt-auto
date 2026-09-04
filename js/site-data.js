@@ -63,7 +63,7 @@
         let html = '';
         for (const v of featured) {
           html += `
-            <article class="vehicle-card card--lift stagger-item">
+            <article class="vehicle-card card--lift stagger-item is-visible">
               <div class="vehicle-card__img img-overlay">
                 ${v.image ? `<img src="${esc(v.image)}" alt="${esc(v.title)}" width="800" height="533" loading="lazy">` : ''}
                 <span class="vehicle-card__badge">${esc(v.status)}</span>
@@ -150,7 +150,7 @@
         if (breadcrumb) breadcrumb.textContent = v.title;
 
         const galleryHtml = (v.gallery || []).map((src, i) =>
-          `<a href="${esc(src)}" data-lightbox class="stagger-item"><img src="${esc(src)}" alt="${esc(v.title)} foto ${i+1}" loading="lazy"></a>`
+          `<a href="${esc(src)}" data-lightbox><img src="${esc(src)}" alt="${esc(v.title)} foto ${i+1}" loading="lazy"></a>`
         ).join('');
 
         container.innerHTML = `
