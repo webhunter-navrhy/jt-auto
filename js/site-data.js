@@ -150,7 +150,7 @@
         if (breadcrumb) breadcrumb.textContent = v.title;
 
         const galleryHtml = (v.gallery || []).map((src, i) =>
-          `<a href="${esc(src)}" data-lightbox><img src="${esc(src)}" alt="${esc(v.title)} foto ${i+1}" loading="lazy"></a>`
+          `<a href="${esc(src)}" data-lightbox style="display:block;overflow:hidden;border-radius:8px;aspect-ratio:4/3"><img src="${esc(src)}" alt="${esc(v.title)} foto ${i+1}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></a>`
         ).join('');
 
         container.innerHTML = `
@@ -181,9 +181,9 @@
           </div>
 
           ${galleryHtml ? `
-          <div class="vehicle-detail__gallery">
-            <h3>Fotogalerie <span class="text-muted">(${v.gallery.length} fotek)</span></h3>
-            <div class="gallery-grid gallery-grid--detail">${galleryHtml}</div>
+          <div style="margin-top:2rem;margin-bottom:2rem">
+            <h3 style="font-size:1.5rem;margin-bottom:1rem">Fotogalerie (${v.gallery.length} fotek)</h3>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">${galleryHtml}</div>
           </div>` : ''}
 
           <div class="vehicle-detail__back">
