@@ -316,12 +316,12 @@ const Admin = (() => {
 
   /* ===== MARK AS SOLD ===== */
   async function markAsSold(id) {
-    if (!confirm('Označit tento vůz jako prodaný?\nBude přesunut do archivu prodaných.')) return;
     try {
       const v = siteData.vehicles.find(x => x.id === id);
       if (!v) { toast('Vozidlo nenalezeno', 'error'); return; }
       v.status = 'Prodáno';
       v.soldDate = new Date().toLocaleDateString('cs-CZ');
+      toast('Ukládám…');
       if (await saveSiteData('Prodáno: ' + v.title)) {
         renderVehicleList();
         renderDashboard();
@@ -333,12 +333,12 @@ const Admin = (() => {
   }
 
   async function restoreVehicle(id) {
-    if (!confirm('Vrátit tento vůz zpět do nabídky?')) return;
     try {
       const v = siteData.vehicles.find(x => x.id === id);
       if (!v) { toast('Vozidlo nenalezeno', 'error'); return; }
       v.status = 'Skladem';
       delete v.soldDate;
+      toast('Ukládám…');
       if (await saveSiteData('Obnoveno: ' + v.title)) {
         renderVehicleList();
         renderDashboard();
@@ -552,7 +552,6 @@ const Admin = (() => {
   }
 
   async function deleteVehicle(id) {
-    if (!confirm('Opravdu smazat toto vozidlo?\nTato akce je nevratná!')) return;
     try {
       const v = siteData.vehicles.find(x => x.id === id);
       const title = v?.title || id;
