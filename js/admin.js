@@ -765,12 +765,14 @@ const Admin = (() => {
     document.getElementById('vehicle-form').addEventListener('submit', (e) => { e.preventDefault(); saveVehicleFromForm(); });
 
     // Modal sold/delete buttons
-    document.getElementById('btn-modal-sold').addEventListener('click', async () => {
+    const btnSold = document.getElementById('btn-modal-sold');
+    const btnDel = document.getElementById('btn-modal-delete');
+    if (btnSold) btnSold.addEventListener('click', async () => {
       if (!editingVehicleId) return;
       await markAsSold(editingVehicleId);
       closeVehicleModal();
     });
-    document.getElementById('btn-modal-delete').addEventListener('click', async () => {
+    if (btnDel) btnDel.addEventListener('click', async () => {
       if (!editingVehicleId) return;
       await deleteVehicle(editingVehicleId);
       closeVehicleModal();
