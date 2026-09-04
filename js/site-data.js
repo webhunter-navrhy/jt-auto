@@ -149,9 +149,15 @@
         const breadcrumb = document.getElementById('breadcrumb-vehicle');
         if (breadcrumb) breadcrumb.textContent = v.title;
 
-        const galleryHtml = (v.gallery || []).map((src, i) =>
-          `<a href="${esc(src)}" data-lightbox style="display:block;overflow:hidden;border-radius:8px;aspect-ratio:4/3"><img src="${esc(src)}" alt="${esc(v.title)} foto ${i+1}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></a>`
-        ).join('');
+        const INITIAL_SHOW = 12;
+        const gallery = v.gallery || [];
+        const galleryItem = (src, i, hidden) =>
+          `<a href="${esc(src)}" data-lightbox style="display:block;overflow:hidden;border-radius:8px;aspect-ratio:4/3;background:#e2e8f0${hidden ? ';display:none' : ''}" class="gallery-thumb"><img src="${esc(src)}" alt="${esc(v.title)} foto ${i+1}" loading="lazy" decoding="async" width="400" height="267" style="width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .3s ease" onload="this.style.opacity=1"></a>`;
+
+        const galleryHtml = gallery.map((src, i) => galleryItem(src, i, i >= INITIAL_SHOW)).join('');
+        const showMoreBtn = gallery.length > INITIAL_SHOW
+          ? `<div style="text-align:center;margin-top:1rem"><button onclick="document.querySelectorAll('.gallery-thumb[style*=none]').forEach(function(e){e.style.display='block'});this.parentElement.remove()" class="btn btn--primary btn--lg">Zobrazit všech ${gallery.length} fotek</button></div>`
+          : '';
 
         container.innerHTML = `
           <div class="vehicle-detail">
@@ -180,10 +186,11 @@
             </div>
           </div>
 
-          ${galleryHtml ? `
+          ${gallery.length ? `
           <div style="margin-top:2rem;margin-bottom:2rem">
-            <h3 style="font-size:1.5rem;margin-bottom:1rem">Fotogalerie (${v.gallery.length} fotek)</h3>
+            <h3 style="font-size:1.5rem;margin-bottom:1rem">Fotogalerie (${gallery.length} fotek)</h3>
             <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">${galleryHtml}</div>
+            ${showMoreBtn}
           </div>` : ''}
 
           <div class="vehicle-detail__back">
