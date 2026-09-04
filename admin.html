@@ -10,7 +10,7 @@
     @font-face { font-family: 'Space Grotesk'; font-style: normal; font-weight: 500 700; font-display: swap; src: url('assets/fonts/space-grotesk.woff2') format('woff2'); }
     @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400 700; font-display: swap; src: url('assets/fonts/inter.woff2') format('woff2'); }
   </style>
-  <link rel="stylesheet" href="css/admin.css?v=20260904b">
+  <link rel="stylesheet" href="css/admin.css?v=20260904c">
 </head>
 <body>
 
@@ -370,6 +370,16 @@
           <div id="gallery-preview" class="upload-preview"></div>
         </div>
 
+        <div id="vehicle-modal-actions" class="admin-modal__actions" style="display:none;border-top:1px solid var(--admin-border);padding-top:1rem;margin-top:1rem;gap:0.5rem;flex-wrap:wrap">
+          <button type="button" class="admin-btn admin-btn--sold" id="btn-modal-sold" style="flex:1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="pointer-events:none"><polyline points="20 6 9 17 4 12"/></svg>
+            Označit jako prodané
+          </button>
+          <button type="button" class="admin-btn admin-btn--danger" id="btn-modal-delete" style="flex:1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="pointer-events:none"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            Smazat vozidlo
+          </button>
+        </div>
         <div class="admin-modal__footer">
           <button type="button" class="admin-btn admin-btn--secondary" id="vehicle-modal-cancel">Zrušit</button>
           <button type="submit" class="admin-btn admin-btn--primary">Uložit vozidlo</button>
@@ -379,6 +389,6 @@
   </div>
 
   <div id="admin-toast" class="admin-toast"></div>
-  <script src="js/admin.js?v=20260904b"></script>
+  <script src="js/admin.js?v=20260904c"></script>
 </body>
 </html>

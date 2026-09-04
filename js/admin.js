@@ -390,10 +390,17 @@ const Admin = (() => {
         });
         renderGalleryPreview();
       }
+      // Show sold/delete actions for existing vehicles
+      const actionsDiv = document.getElementById('vehicle-modal-actions');
+      if (actionsDiv) {
+        actionsDiv.style.display = (v.status !== 'Prodáno') ? 'flex' : 'none';
+      }
     } else {
       editingVehicleId = null;
       document.getElementById('vehicle-modal-title').textContent = 'Přidat vozidlo';
       document.getElementById('vf-id').value = '';
+      const actionsDiv = document.getElementById('vehicle-modal-actions');
+      if (actionsDiv) actionsDiv.style.display = 'none';
     }
 
     modal.classList.add('visible');
@@ -755,8 +762,19 @@ const Admin = (() => {
     document.getElementById('btn-add-vehicle').addEventListener('click', () => openVehicleModal());
     document.getElementById('vehicle-modal-close').addEventListener('click', closeVehicleModal);
     document.getElementById('vehicle-modal-cancel').addEventListener('click', closeVehicleModal);
-    // Modal se nezavře kliknutím mimo — pouze tlačítkem Zrušit nebo X
     document.getElementById('vehicle-form').addEventListener('submit', (e) => { e.preventDefault(); saveVehicleFromForm(); });
+
+    // Modal sold/delete buttons
+    document.getElementById('btn-modal-sold').addEventListener('click', async () => {
+      if (!editingVehicleId) return;
+      await markAsSold(editingVehicleId);
+      closeVehicleModal();
+    });
+    document.getElementById('btn-modal-delete').addEventListener('click', async () => {
+      if (!editingVehicleId) return;
+      await deleteVehicle(editingVehicleId);
+      closeVehicleModal();
+    });
 
     // File uploads
     document.getElementById('main-img-input').addEventListener('change', (e) => handleMainImageUpload(e.target.files));
