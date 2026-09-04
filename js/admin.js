@@ -54,16 +54,19 @@ const Admin = (() => {
     }
   }
 
-  async function commitFiles(files, message) {
+  async function commitFiles(files, message, _retry) {
     showLoading(true);
     try {
+      // 1. Get current HEAD
       const refResp = await ghAPI('git/ref/heads/' + CFG.branch);
       if (!refResp.ok) throw new Error('Nelze získat HEAD');
       const headSha = (await refResp.json()).object.sha;
 
+      // 2. Get base tree
       const commitResp = await ghAPI('git/commits/' + headSha);
       const treeSha = (await commitResp.json()).tree.sha;
 
+      // 3. Create blobs
       const treeItems = [];
       for (const f of files) {
         const blobResp = await ghAPI('git/blobs', 'POST', {
@@ -79,23 +82,40 @@ const Admin = (() => {
         });
       }
 
+      // 4. Create tree
       const newTreeResp = await ghAPI('git/trees', 'POST', {
         base_tree: treeSha,
         tree: treeItems
       });
       if (!newTreeResp.ok) throw new Error('Tree');
+      const newTreeSha = (await newTreeResp.json()).sha;
 
+      // 5. Create commit
       const newCommitResp = await ghAPI('git/commits', 'POST', {
         message: '[admin] ' + message,
-        tree: (await newTreeResp.json()).sha,
+        tree: newTreeSha,
         parents: [headSha]
       });
       if (!newCommitResp.ok) throw new Error('Commit');
+      const newCommitSha = (await newCommitResp.json()).sha;
 
-      const updateResp = await ghAPI('git/refs/heads/' + CFG.branch, 'PATCH', {
-        sha: (await newCommitResp.json()).sha
+      // 6. Update ref — if HEAD moved, retry once with fresh HEAD
+      let updateResp = await ghAPI('git/refs/heads/' + CFG.branch, 'PATCH', {
+        sha: newCommitSha
       });
-      if (!updateResp.ok) throw new Error('Ref update');
+      if (!updateResp.ok && !_retry) {
+        // HEAD moved — re-fetch HEAD, rebase commit, try again
+        showLoading(false);
+        return commitFiles(files, message, true);
+      }
+      if (!updateResp.ok) {
+        // Force update as last resort (safe for single-admin)
+        updateResp = await ghAPI('git/refs/heads/' + CFG.branch, 'PATCH', {
+          sha: newCommitSha,
+          force: true
+        });
+        if (!updateResp.ok) throw new Error('Ref update');
+      }
 
       return true;
     } catch (err) {
