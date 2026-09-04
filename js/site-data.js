@@ -167,7 +167,8 @@
             </div>
             <div class="vehicle-detail__info">
               <h2 class="vehicle-detail__title">${esc(v.title)}</h2>
-              ${v.desc ? `<p class="vehicle-detail__desc">${esc(v.desc)}</p>` : ''}
+              ${v.desc ? `<div class="vehicle-detail__equipment"><strong>Výbava:</strong> ${esc(v.desc)}</div>` : ''}
+              ${v.description ? `<p class="vehicle-detail__desc">${esc(v.description)}</p>` : ''}
               <div class="vehicle-detail__price">${esc(v.price)}</div>
 
               <div class="vehicle-detail__specs">
@@ -270,14 +271,40 @@
     const dlg = document.getElementById('lightbox');
     if (!dlg) return;
     const img = dlg.querySelector('.lightbox__img');
+    const prevBtn = dlg.querySelector('.lightbox__prev');
+    const nextBtn = dlg.querySelector('.lightbox__next');
+    const counter = dlg.querySelector('.lightbox__counter');
     const items = [...document.querySelectorAll('[data-lightbox]')];
     let idx = 0;
-    function show(i) { idx = i; const el = items[i]; img.src = el.href || el.querySelector('img')?.src || ''; img.alt = el.querySelector('img')?.alt || ''; dlg.showModal(); }
+    function show(i) {
+      idx = i;
+      const el = items[i];
+      img.src = el.href || el.querySelector('img')?.src || '';
+      img.alt = el.querySelector('img')?.alt || '';
+      if (prevBtn) prevBtn.style.display = i > 0 ? '' : 'none';
+      if (nextBtn) nextBtn.style.display = i < items.length - 1 ? '' : 'none';
+      if (counter) counter.textContent = (i + 1) + ' / ' + items.length;
+      dlg.showModal();
+    }
     items.forEach((el, i) => { el.style.cursor = 'zoom-in'; el.onclick = (e) => { e.preventDefault(); show(i); }; });
+    dlg.onclick = (e) => { if (e.target === dlg) dlg.close(); };
+    dlg.querySelector('.lightbox__close').onclick = () => dlg.close();
+    if (prevBtn) prevBtn.onclick = () => { if (idx > 0) show(idx - 1); };
+    if (nextBtn) nextBtn.onclick = () => { if (idx < items.length - 1) show(idx + 1); };
     document.addEventListener('keydown', (e) => {
       if (!dlg.open) return;
       if (e.key === 'ArrowRight' && idx < items.length - 1) show(idx + 1);
       if (e.key === 'ArrowLeft' && idx > 0) show(idx - 1);
+    });
+    // Touch swipe support
+    let touchStartX = 0;
+    dlg.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+    dlg.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 50) {
+        if (dx < 0 && idx < items.length - 1) show(idx + 1);
+        if (dx > 0 && idx > 0) show(idx - 1);
+      }
     });
   }
 })();

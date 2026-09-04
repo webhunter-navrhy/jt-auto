@@ -693,6 +693,28 @@ body {
 .upload-preview__item:hover .upload-preview__remove {
   opacity: 1;
 }
+.upload-preview__order {
+  position: absolute;
+  bottom: 4px;
+  left: 4px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.upload-preview__item[draggable="true"] {
+  cursor: grab;
+}
+.upload-preview__item[draggable="true"]:active {
+  cursor: grabbing;
+}
 
 /* ===== SOLD BUTTON ===== */
 .admin-btn--sold {

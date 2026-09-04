@@ -278,28 +278,36 @@ const Admin = (() => {
 
   /* ===== MARK AS SOLD ===== */
   async function markAsSold(id) {
-    if (!confirm('Označit tento vůz jako prodaný? Bude přesunut do archivu.')) return;
-    const v = siteData.vehicles.find(x => x.id === id);
-    if (!v) return;
-    v.status = 'Prodáno';
-    v.soldDate = new Date().toLocaleDateString('cs-CZ');
-    if (await saveSiteData('Prodáno: ' + v.title)) {
-      renderVehicleList();
-      renderDashboard();
-      toast('Vůz označen jako prodaný', 'success');
+    if (!confirm('Označit tento vůz jako prodaný?\nBude přesunut do archivu prodaných.')) return;
+    try {
+      const v = siteData.vehicles.find(x => x.id === id);
+      if (!v) { toast('Vozidlo nenalezeno', 'error'); return; }
+      v.status = 'Prodáno';
+      v.soldDate = new Date().toLocaleDateString('cs-CZ');
+      if (await saveSiteData('Prodáno: ' + v.title)) {
+        renderVehicleList();
+        renderDashboard();
+        toast('Vůz označen jako prodaný a přesunut do archivu', 'success');
+      }
+    } catch (err) {
+      toast('Chyba: ' + err.message, 'error');
     }
   }
 
   async function restoreVehicle(id) {
     if (!confirm('Vrátit tento vůz zpět do nabídky?')) return;
-    const v = siteData.vehicles.find(x => x.id === id);
-    if (!v) return;
-    v.status = 'Skladem';
-    delete v.soldDate;
-    if (await saveSiteData('Obnoveno: ' + v.title)) {
-      renderVehicleList();
-      renderDashboard();
-      toast('Vůz vrácen do nabídky', 'success');
+    try {
+      const v = siteData.vehicles.find(x => x.id === id);
+      if (!v) { toast('Vozidlo nenalezeno', 'error'); return; }
+      v.status = 'Skladem';
+      delete v.soldDate;
+      if (await saveSiteData('Obnoveno: ' + v.title)) {
+        renderVehicleList();
+        renderDashboard();
+        toast('Vůz vrácen do nabídky', 'success');
+      }
+    } catch (err) {
+      toast('Chyba: ' + err.message, 'error');
     }
   }
 
@@ -323,6 +331,7 @@ const Admin = (() => {
       document.getElementById('vf-id').value = v.id;
       document.getElementById('vf-title').value = v.title;
       document.getElementById('vf-desc').value = v.desc || '';
+      document.getElementById('vf-description').value = v.description || '';
       document.getElementById('vf-price').value = v.price;
       document.getElementById('vf-year').value = v.year;
       document.getElementById('vf-km').value = v.km;
@@ -375,9 +384,40 @@ const Admin = (() => {
   function renderGalleryPreview() {
     const container = document.getElementById('gallery-preview');
     container.innerHTML = tempGallery.map((g, i) => {
+      if (g.pending) {
+        return '<div class="upload-preview__item" style="display:flex;align-items:center;justify-content:center;background:var(--admin-bg);min-height:80px"><div class="admin-loading__spinner" style="width:24px;height:24px;border-width:2px"></div></div>';
+      }
       const src = g.url || g.path || '';
-      return '<div class="upload-preview__item"><img src="' + esc(src) + '" alt="Galerie ' + (i+1) + '"><button type="button" class="upload-preview__remove" onclick="Admin.removeGalleryImage(' + i + ')">&times;</button></div>';
+      return '<div class="upload-preview__item" draggable="true" data-gallery-idx="' + i + '"><img src="' + esc(src) + '" alt="Galerie ' + (i+1) + '"><span class="upload-preview__order">' + (i+1) + '</span><button type="button" class="upload-preview__remove" onclick="Admin.removeGalleryImage(' + i + ')">&times;</button></div>';
     }).join('');
+    // Enable drag & drop reorder
+    initGalleryDragSort();
+  }
+
+  function initGalleryDragSort() {
+    const container = document.getElementById('gallery-preview');
+    let dragIdx = null;
+    container.querySelectorAll('[data-gallery-idx]').forEach(el => {
+      el.addEventListener('dragstart', (e) => {
+        dragIdx = parseInt(el.dataset.galleryIdx);
+        el.style.opacity = '0.4';
+        e.dataTransfer.effectAllowed = 'move';
+      });
+      el.addEventListener('dragend', () => { el.style.opacity = ''; });
+      el.addEventListener('dragover', (e) => { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; el.style.outline = '2px solid var(--admin-accent)'; });
+      el.addEventListener('dragleave', () => { el.style.outline = ''; });
+      el.addEventListener('drop', (e) => {
+        e.preventDefault();
+        el.style.outline = '';
+        const dropIdx = parseInt(el.dataset.galleryIdx);
+        if (dragIdx !== null && dragIdx !== dropIdx) {
+          const item = tempGallery.splice(dragIdx, 1)[0];
+          tempGallery.splice(dropIdx, 0, item);
+          renderGalleryPreview();
+        }
+        dragIdx = null;
+      });
+    });
   }
 
   /* ===== FILE UPLOAD ===== */
@@ -394,11 +434,16 @@ const Admin = (() => {
   }
 
   function handleGalleryUpload(files) {
-    Array.from(files).forEach(file => {
-      if (!file.type.startsWith('image/')) return;
+    const filesArr = Array.from(files).filter(f => f.type.startsWith('image/'));
+    if (!filesArr.length) return;
+    const startIdx = tempGallery.length;
+    // Pre-allocate slots to preserve original file order
+    filesArr.forEach(() => tempGallery.push({ pending: true }));
+    renderGalleryPreview();
+    filesArr.forEach((file, i) => {
       compressImage(file).then(blob => {
         const url = blobToURL(blob);
-        tempGallery.push({ blob, url });
+        tempGallery[startIdx + i] = { blob, url };
         renderGalleryPreview();
       });
     });
@@ -411,6 +456,7 @@ const Admin = (() => {
       id: id,
       title: document.getElementById('vf-title').value.trim(),
       desc: document.getElementById('vf-desc').value.trim(),
+      description: document.getElementById('vf-description').value.trim(),
       price: document.getElementById('vf-price').value.trim(),
       year: parseInt(document.getElementById('vf-year').value),
       km: document.getElementById('vf-km').value.trim(),
@@ -437,9 +483,10 @@ const Admin = (() => {
       }
     }
 
-    // Gallery
+    // Gallery — skip pending (still compressing) items
     for (let i = 0; i < tempGallery.length; i++) {
       const g = tempGallery[i];
+      if (g.pending) continue;
       if (g.blob) {
         const b64 = await blobToBase64(g.blob);
         const imgPath = CFG.imgDir + '/' + id + '_g' + i + '.jpg';
@@ -467,13 +514,21 @@ const Admin = (() => {
   }
 
   async function deleteVehicle(id) {
-    if (!confirm('Opravdu smazat toto vozidlo? Tato akce je nevratná.')) return;
-    const v = siteData.vehicles.find(x => x.id === id);
-    siteData.vehicles = siteData.vehicles.filter(x => x.id !== id);
-    if (await saveSiteData('Smazáno: ' + (v?.title || id))) {
-      renderVehicleList();
-      renderDashboard();
-      toast('Vozidlo smazáno', 'success');
+    if (!confirm('Opravdu smazat toto vozidlo?\nTato akce je nevratná!')) return;
+    try {
+      const v = siteData.vehicles.find(x => x.id === id);
+      const title = v?.title || id;
+      siteData.vehicles = siteData.vehicles.filter(x => x.id !== id);
+      if (await saveSiteData('Smazáno: ' + title)) {
+        renderVehicleList();
+        renderDashboard();
+        toast('Vozidlo "' + title + '" smazáno', 'success');
+      } else {
+        // Restore if save failed — re-add vehicle
+        if (v) siteData.vehicles.push(v);
+      }
+    } catch (err) {
+      toast('Chyba: ' + err.message, 'error');
     }
   }
 
