@@ -3,17 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nabídka vozidel | JT Auto — Dovoz z Německa</title>
-  <meta name="description" content="Aktuální nabídka prověřených ojetých vozů z Německa. Mazda CX-5, Mazda 6, Škoda Fabia a další. Prohlédněte si vozy skladem.">
+  <title>Detail vozidla | JT Auto</title>
+  <meta name="description" content="Detail vozidla — JT Auto, dovoz prověřených vozů z Německa.">
 
-  <meta property="og:title" content="Nabídka vozidel | JT Auto">
-  <meta property="og:description" content="Prověřené ojeté vozy z Německa skladem k odběru. Chrudim.">
+  <meta property="og:title" content="Detail vozidla | JT Auto">
   <meta property="og:type" content="website">
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚗</text></svg>">
   <link rel="preload" href="assets/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="canonical" href="https://jt-auto.cz/nabidka.html">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="has-grain">
@@ -49,8 +47,7 @@
     <section class="page-hero">
       <div class="container">
         <span class="hero__accent" data-reveal></span>
-        <h1 data-reveal data-delay="100">Nabídka vozidel</h1>
-        <p data-reveal data-delay="200">Vozy skladem k&nbsp;okamžitému odběru. Každý prověřený, s&nbsp;kompletní historií.</p>
+        <h1 id="vehicle-page-title" data-reveal data-delay="100">Detail vozidla</h1>
       </div>
     </section>
 
@@ -60,26 +57,17 @@
         <ol class="breadcrumb__list">
           <li><a href="index.html">Domů</a></li>
           <li class="breadcrumb__sep" aria-hidden="true">/</li>
-          <li aria-current="page">Nabídka vozidel</li>
+          <li><a href="nabidka.html">Nabídka vozidel</a></li>
+          <li class="breadcrumb__sep" aria-hidden="true">/</li>
+          <li id="breadcrumb-vehicle" aria-current="page">Detail</li>
         </ol>
       </div>
     </nav>
 
-    <!-- VEHICLES -->
-    <section class="vehicles-section">
-      <div class="container">
-
-        <!-- Vehicles loaded dynamically from site-data.json -->
-
-        <!-- Dovoz na přání CTA -->
-        <div class="cta-box mt-xl" data-reveal>
-          <h3>Nehledáte nic z nabídky?</h3>
-          <p>Dovezeme vůz přesně podle vašich představ. Řekněte nám značku, model a&nbsp;rozpočet.</p>
-          <a href="kontakt.html" class="btn btn--primary btn--lg btn--magnetic">Poptat dovoz na přání</a>
-        </div>
-
-        <p class="legal-text">Údaje obsažené na těchto webových stránkách mají informativní charakter. Uvedené indikativní nabídky nejsou nabídkou ve smyslu § 1731 nebo § 1732 občanského zákoníku, ani se nejedná o veřejný příslib dle § 1733 občanského zákoníku.</p>
-
+    <!-- VEHICLE DETAIL -->
+    <section class="vehicle-detail-section">
+      <div class="container" id="vehicle-detail-container">
+        <div class="vehicle-detail-loading">Načítání vozidla...</div>
       </div>
     </section>
 

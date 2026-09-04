@@ -1,4 +1,4 @@
-/* JT Auto — Dynamic content loader v3
+/* JT Auto — Dynamic content loader v4
    Fetches data from data/site-data.json, applies to pages */
 (async function() {
   'use strict';
@@ -55,7 +55,7 @@
     const inStock = vehicles.filter(v => v.status === 'Skladem' || v.status === 'Rezervováno');
     const soldVehicles = vehicles.filter(v => v.status === 'Prodáno');
 
-    /* INDEX — featured cards */
+    /* INDEX — featured cards (max 3) */
     if (page === 'index.html' || page === '') {
       const grid = document.querySelector('#nabidka .grid--3');
       if (grid && inStock.length) {
@@ -77,7 +77,7 @@
                   <span class="vehicle-card__spec">${icons.pow} ${esc(v.power)}</span>
                   <span class="vehicle-card__spec">${icons.fuel} ${esc(v.fuel)}</span>
                 </div>
-                <div class="vehicle-card__actions"><a href="nabidka.html#${v.id}" class="btn btn--primary btn--sm btn--block">Zobrazit detail</a></div>
+                <div class="vehicle-card__actions"><a href="vozidlo.html?id=${v.id}" class="btn btn--primary btn--sm btn--block">Zobrazit detail</a></div>
               </div>
             </article>`;
         }
@@ -85,52 +85,120 @@
       }
     }
 
-    /* NABIDKA — full detail cards */
+    /* NABIDKA — compact card grid */
     if (page === 'nabidka.html') {
       const container = document.querySelector('.vehicles-section .container');
       if (container) {
         const ctaBox = container.querySelector('.cta-box');
+        const legalText = container.querySelector('.legal-text');
+        // Remove static vehicle cards
         container.querySelectorAll('.vehicle-card--detail').forEach(el => el.remove());
 
-        for (const v of inStock) {
-          const article = document.createElement('article');
-          article.id = v.id;
-          article.className = 'vehicle-card vehicle-card--detail card--lift';
-          article.setAttribute('data-reveal', '');
+        if (inStock.length) {
+          const grid = document.createElement('div');
+          grid.className = 'vehicles-grid';
 
-          const galleryHtml = (v.gallery || []).map((src, i) =>
-            `<a href="${esc(src)}" data-lightbox class="stagger-item"><img src="${esc(src)}" alt="${esc(v.title)} detail ${i+1}" loading="lazy"></a>`
-          ).join('');
+          for (const v of inStock) {
+            const card = document.createElement('article');
+            card.className = 'vehicle-card card--lift';
+            card.setAttribute('data-reveal', '');
 
-          article.innerHTML = `
-            <div class="vehicle-card__img img-overlay">
-              ${v.image ? `<img src="${esc(v.image)}" alt="${esc(v.title)}" width="800" height="533" loading="lazy">` : ''}
-              <span class="vehicle-card__badge">${esc(v.status)}</span>
-            </div>
-            <div class="vehicle-card__body">
-              <h2 class="vehicle-card__title">${esc(v.title)}</h2>
-              ${v.desc ? `<p class="text-muted text-sm">${esc(v.desc)}</p>` : ''}
-              <div class="vehicle-card__price">${esc(v.price)}</div>
-              <div class="vehicle-card__specs">
-                <span class="vehicle-card__spec">${icons.cal} Rok ${v.year}</span>
-                <span class="vehicle-card__spec">${icons.km} ${esc(v.km)}</span>
-                <span class="vehicle-card__spec">${icons.pow} ${esc(v.power)} / ${esc(v.fuel)}</span>
-                <span class="vehicle-card__spec">${icons.gear} ${esc(v.transmission || 'Manuál')}</span>
-                <span class="vehicle-card__spec">${icons.doc} Servisní knížka</span>
-                ${v.vin ? `<span class="vehicle-card__spec">${icons.vin} VIN: ${esc(v.vin)}</span>` : ''}
-              </div>
-              ${galleryHtml ? `<div class="gallery-grid mt-lg">${galleryHtml}</div>` : ''}
-              <div class="vehicle-card__actions mt-lg">
-                <a href="tel:+420776210220" class="btn btn--primary btn--magnetic">Zavolat a domluvit prohlídku</a>
-                <a href="kontakt.html" class="btn btn--secondary">Napsat dotaz</a>
-              </div>
-            </div>`;
+            card.innerHTML = `
+              <a href="vozidlo.html?id=${v.id}" class="vehicle-card__link">
+                <div class="vehicle-card__img img-overlay">
+                  ${v.image ? `<img src="${esc(v.image)}" alt="${esc(v.title)}" width="800" height="533" loading="lazy">` : ''}
+                  <span class="vehicle-card__badge">${esc(v.status)}</span>
+                </div>
+                <div class="vehicle-card__body">
+                  <h2 class="vehicle-card__title">${esc(v.title)}</h2>
+                  ${v.desc ? `<p class="vehicle-card__desc">${esc(v.desc)}</p>` : ''}
+                  <div class="vehicle-card__price">${esc(v.price)}</div>
+                  <div class="vehicle-card__specs">
+                    <span class="vehicle-card__spec">${icons.cal} ${v.year}</span>
+                    <span class="vehicle-card__spec">${icons.km} ${esc(v.km)}</span>
+                    <span class="vehicle-card__spec">${icons.pow} ${esc(v.power)}</span>
+                    <span class="vehicle-card__spec">${icons.fuel} ${esc(v.fuel)}</span>
+                  </div>
+                  <div class="vehicle-card__actions">
+                    <span class="btn btn--primary btn--sm btn--block">Zobrazit detail</span>
+                  </div>
+                </div>
+              </a>`;
 
-          if (ctaBox) container.insertBefore(article, ctaBox);
-          else container.appendChild(article);
+            grid.appendChild(card);
+          }
+
+          if (ctaBox) container.insertBefore(grid, ctaBox);
+          else if (legalText) container.insertBefore(grid, legalText);
+          else container.appendChild(grid);
         }
+      }
+    }
+
+    /* VOZIDLO — vehicle detail page */
+    if (page === 'vozidlo.html') {
+      const urlParams = new URLSearchParams(location.search);
+      const vehicleId = urlParams.get('id');
+      const v = vehicleId ? vehicles.find(x => x.id === vehicleId) : null;
+      const container = document.getElementById('vehicle-detail-container');
+
+      if (v && container) {
+        // Update page title & breadcrumb
+        document.title = v.title + ' | JT Auto';
+        const pageTitle = document.getElementById('vehicle-page-title');
+        if (pageTitle) pageTitle.textContent = v.title;
+        const breadcrumb = document.getElementById('breadcrumb-vehicle');
+        if (breadcrumb) breadcrumb.textContent = v.title;
+
+        const galleryHtml = (v.gallery || []).map((src, i) =>
+          `<a href="${esc(src)}" data-lightbox class="stagger-item"><img src="${esc(src)}" alt="${esc(v.title)} foto ${i+1}" loading="lazy"></a>`
+        ).join('');
+
+        container.innerHTML = `
+          <div class="vehicle-detail" data-reveal>
+            <div class="vehicle-detail__main-img">
+              ${v.image ? `<img src="${esc(v.image)}" alt="${esc(v.title)}" width="1200" height="800">` : ''}
+              <span class="vehicle-card__badge vehicle-card__badge--lg">${esc(v.status)}</span>
+            </div>
+            <div class="vehicle-detail__info">
+              <h2 class="vehicle-detail__title">${esc(v.title)}</h2>
+              ${v.desc ? `<p class="vehicle-detail__desc">${esc(v.desc)}</p>` : ''}
+              <div class="vehicle-detail__price">${esc(v.price)}</div>
+
+              <div class="vehicle-detail__specs">
+                <div class="vehicle-detail__spec">${icons.cal}<div><span class="spec-label">Rok výroby</span><span class="spec-value">${v.year}</span></div></div>
+                <div class="vehicle-detail__spec">${icons.km}<div><span class="spec-label">Nájezd</span><span class="spec-value">${esc(v.km)}</span></div></div>
+                <div class="vehicle-detail__spec">${icons.pow}<div><span class="spec-label">Výkon</span><span class="spec-value">${esc(v.power)}</span></div></div>
+                <div class="vehicle-detail__spec">${icons.fuel}<div><span class="spec-label">Palivo</span><span class="spec-value">${esc(v.fuel || '—')}</span></div></div>
+                <div class="vehicle-detail__spec">${icons.gear}<div><span class="spec-label">Převodovka</span><span class="spec-value">${esc(v.transmission || 'Manuál')}</span></div></div>
+                ${v.vin ? `<div class="vehicle-detail__spec">${icons.vin}<div><span class="spec-label">VIN</span><span class="spec-value">${esc(v.vin)}</span></div></div>` : ''}
+              </div>
+
+              <div class="vehicle-detail__actions">
+                <a href="tel:+420776210220" class="btn btn--primary btn--lg btn--magnetic">Zavolat a domluvit prohlídku</a>
+                <a href="kontakt.html" class="btn btn--secondary btn--lg">Napsat dotaz</a>
+              </div>
+            </div>
+          </div>
+
+          ${galleryHtml ? `
+          <div class="vehicle-detail__gallery" data-reveal>
+            <h3>Fotogalerie <span class="text-muted">(${v.gallery.length} fotek)</span></h3>
+            <div class="gallery-grid gallery-grid--detail">${galleryHtml}</div>
+          </div>` : ''}
+
+          <div class="vehicle-detail__back">
+            <a href="nabidka.html" class="btn btn--secondary">&larr; Zpět na nabídku</a>
+          </div>`;
 
         reinitLightbox();
+      } else if (container) {
+        container.innerHTML = `
+          <div class="vehicle-detail__empty">
+            <h2>Vozidlo nenalezeno</h2>
+            <p>Toto vozidlo již není v nabídce nebo odkaz není platný.</p>
+            <a href="nabidka.html" class="btn btn--primary btn--lg">&larr; Zpět na nabídku</a>
+          </div>`;
       }
     }
 
