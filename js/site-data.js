@@ -185,7 +185,7 @@
           </div>
 
           ${gallery.length ? `
-          <div style="margin-top:2rem;margin-bottom:2rem">
+          <div style="margin-top:0;margin-bottom:2rem">
             <h3 style="font-size:1.5rem;margin-bottom:1rem">Fotogalerie (${gallery.length} fotek)</h3>
             <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">${galleryHtml}</div>
             ${showMoreBtn}
@@ -223,7 +223,6 @@
             <div class="archive-card__img">
               ${v.image ? `<img src="${esc(v.image)}" alt="${esc(v.title)}" loading="lazy">` : '<div style="width:100%;height:100%;background:#f1f5f9"></div>'}
               <span class="vehicle-card__badge vehicle-card__badge--sold">Prodáno</span>
-              <span class="archive-card__num">#${v.id.replace('v','')}</span>
             </div>
             <div class="archive-card__body">
               <div class="archive-card__title">${esc(v.title)}</div>
