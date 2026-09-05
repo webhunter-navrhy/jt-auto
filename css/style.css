@@ -583,7 +583,7 @@
   .vehicle-detail {
     display: grid; grid-template-columns: 1fr 1fr;
     gap: var(--space-2xl);
-    margin-bottom: var(--space-2xl);
+    margin-bottom: var(--space-md);
   }
   .vehicle-detail__main-img {
     position: relative; border-radius: var(--radius-lg);
@@ -903,11 +903,7 @@
     border-radius: 0;
   }
   .archive-card__num {
-    position: absolute; bottom: var(--space-sm); right: var(--space-sm);
-    background: rgba(0,0,0,0.55); color: rgba(255,255,255,0.8);
-    padding: 0.15em 0.55em; border-radius: var(--radius-sm);
-    font-size: 0.75rem; font-weight: 600;
-    backdrop-filter: blur(4px);
+    display: none;
   }
   .archive-card .vehicle-card__badge,
   .archive-card .vehicle-card__badge--sold {
