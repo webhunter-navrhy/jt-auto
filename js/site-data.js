@@ -65,7 +65,7 @@
           html += `
             <article class="vehicle-card card--lift stagger-item is-visible">
               <div class="vehicle-card__img img-overlay">
-                ${v.image ? `<img src="${esc(v.image)}" alt="${esc(v.title)}" width="800" height="533" loading="lazy">` : ''}
+                ${v.image ? `<img src="${esc(v.image)}" alt="${esc(v.title)}" width="800" height="533" loading="lazy" onerror="this.style.display='none'">` : ''}
               </div>
               <div class="vehicle-card__body">
                 <h3 class="vehicle-card__title">${esc(v.title)}</h3>
@@ -104,7 +104,7 @@
             card.innerHTML = `
               <a href="vozidlo.html?id=${v.id}" class="vehicle-card__link">
                 <div class="vehicle-card__img img-overlay">
-                  ${v.image ? `<img src="${esc(v.image)}" alt="${esc(v.title)}" width="800" height="533" loading="lazy">` : ''}
+                  ${v.image ? `<img src="${esc(v.image)}" alt="${esc(v.title)}" width="800" height="533" loading="lazy" onerror="this.style.display='none'">` : ''}
                 </div>
                 <div class="vehicle-card__body">
                   <h2 class="vehicle-card__title">${esc(v.title)}</h2>
@@ -221,7 +221,7 @@
 
           card.innerHTML = `
             <div class="archive-card__img">
-              ${v.image ? `<img src="${esc(v.image)}" alt="${esc(v.title)}" loading="lazy">` : '<div style="width:100%;height:100%;background:#f1f5f9"></div>'}
+              ${v.image ? `<img src="${esc(v.image)}" alt="${esc(v.title)}" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='#e2e8f0'">` : '<div style="width:100%;height:100%;background:#e2e8f0"></div>'}
               <span class="vehicle-card__badge vehicle-card__badge--sold">Prodáno</span>
             </div>
             <div class="archive-card__body">
