@@ -191,7 +191,7 @@ const Admin = (() => {
   }
 
   function isLoggedIn() { return sessionStorage.getItem('jt_admin_session') === '1'; }
-  function logout() { sessionStorage.removeItem('jt_admin_session'); location.reload(); }
+  function logout() { sessionStorage.removeItem('jt_admin_session'); window.location.href = 'index.html'; }
 
   /* ===== UTILS ===== */
   function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
