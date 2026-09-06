@@ -164,9 +164,6 @@
             </div>
             <div class="vehicle-detail__info">
               <h2 class="vehicle-detail__title">${esc(v.title)}</h2>
-              ${v.desc ? `<div class="vehicle-detail__equipment"><strong>Výbava:</strong> ${esc(v.desc)}</div>` : ''}
-              ${v.description ? `<p class="vehicle-detail__desc">${esc(v.description)}</p>` : ''}
-              <div class="vehicle-detail__price">${esc(v.price)}</div>
 
               <div class="vehicle-detail__specs">
                 <div class="vehicle-detail__spec">${icons.cal}<div><span class="spec-label">Rok výroby</span><span class="spec-value">${v.year}</span></div></div>
@@ -176,6 +173,10 @@
                 <div class="vehicle-detail__spec">${icons.gear}<div><span class="spec-label">Převodovka</span><span class="spec-value">${esc(v.transmission || 'Manuál')}</span></div></div>
                 ${v.vin ? `<div class="vehicle-detail__spec">${icons.vin}<div><span class="spec-label">VIN</span><span class="spec-value">${esc(v.vin)}</span></div></div>` : ''}
               </div>
+
+              ${v.desc ? `<div class="vehicle-detail__equipment"><strong>Výbava:</strong> ${esc(v.desc)}</div>` : ''}
+              ${v.description ? `<p class="vehicle-detail__desc">${esc(v.description)}</p>` : ''}
+              <div class="vehicle-detail__price">${esc(v.price)}</div>
 
               <div class="vehicle-detail__actions">
                 <a href="tel:+420776210220" class="btn btn--primary btn--lg btn--magnetic">Zavolat a domluvit prohlídku</a>
