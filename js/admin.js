@@ -177,8 +177,12 @@ const Admin = (() => {
   }
 
   async function getStoredHash() {
+    // Priority: site-data.json (synced) > localStorage (legacy) > default
+    if (siteData && siteData.adminPasswordHash) {
+      return siteData.adminPasswordHash;
+    }
     let h = localStorage.getItem('jt_admin_password');
-    if (!h) { h = await hashPassword(DEFAULT_PASSWORD); localStorage.setItem('jt_admin_password', h); }
+    if (!h) { h = await hashPassword(DEFAULT_PASSWORD); }
     return h;
   }
 
@@ -188,6 +192,16 @@ const Admin = (() => {
       return true;
     }
     return false;
+  }
+
+  // Migrate password from localStorage to site-data.json on first login
+  async function migratePasswordToCloud() {
+    const localHash = localStorage.getItem('jt_admin_password');
+    if (localHash && siteData && !siteData.adminPasswordHash) {
+      siteData.adminPasswordHash = localHash;
+      await saveSiteData('Migrace hesla do cloudu');
+      localStorage.removeItem('jt_admin_password');
+    }
   }
 
   function isLoggedIn() { return sessionStorage.getItem('jt_admin_session') === '1'; }
@@ -285,12 +299,12 @@ const Admin = (() => {
 
     const vid = v.id;
     const actions = isSold ?
-      '<button class="admin-btn admin-btn--secondary admin-btn--sm" data-action="restore" data-id="' + vid + '" onclick="Admin.restoreVehicle(\'' + vid + '\')">Obnovit</button>' +
-      '<button class="admin-btn admin-btn--danger admin-btn--sm admin-btn--icon" data-action="delete" data-id="' + vid + '" onclick="Admin.deleteVehicle(\'' + vid + '\')" title="Smazat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="pointer-events:none"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>'
+      '<button class="admin-btn admin-btn--secondary admin-btn--sm" data-action="restore" data-id="' + vid + '">Obnovit</button>' +
+      '<button class="admin-btn admin-btn--danger admin-btn--sm admin-btn--icon" data-action="delete" data-id="' + vid + '" title="Smazat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="pointer-events:none"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>'
     :
-      '<button class="admin-btn admin-btn--secondary admin-btn--sm" data-action="edit" data-id="' + vid + '" onclick="Admin.editVehicle(\'' + vid + '\')">Upravit</button>' +
-      '<button class="admin-btn admin-btn--sold admin-btn--sm" data-action="sold" data-id="' + vid + '" onclick="Admin.markAsSold(\'' + vid + '\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="pointer-events:none"><polyline points="20 6 9 17 4 12"/></svg> Prodáno</button>' +
-      '<button class="admin-btn admin-btn--danger admin-btn--sm admin-btn--icon" data-action="delete" data-id="' + vid + '" onclick="Admin.deleteVehicle(\'' + vid + '\')" title="Smazat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="pointer-events:none"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>';
+      '<button class="admin-btn admin-btn--secondary admin-btn--sm" data-action="edit" data-id="' + vid + '">Upravit</button>' +
+      '<button class="admin-btn admin-btn--sold admin-btn--sm" data-action="sold" data-id="' + vid + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="pointer-events:none"><polyline points="20 6 9 17 4 12"/></svg> Prodáno</button>' +
+      '<button class="admin-btn admin-btn--danger admin-btn--sm admin-btn--icon" data-action="delete" data-id="' + vid + '" title="Smazat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="pointer-events:none"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>';
 
     return '<div class="vehicle-item">' +
       (imgSrc ? '<img class="vehicle-item__img" src="' + esc(imgSrc) + '" alt="' + esc(v.title) + '">' : '<div class="vehicle-item__img vehicle-item__img--empty"></div>') +
@@ -319,6 +333,7 @@ const Admin = (() => {
     try {
       const v = siteData.vehicles.find(x => x.id === id);
       if (!v) { toast('Vozidlo nenalezeno', 'error'); return; }
+      if (!confirm('Opravdu označit „' + v.title + '" jako prodané?')) return;
       v.status = 'Prodáno';
       v.soldDate = new Date().toLocaleDateString('cs-CZ');
       toast('Ukládám…');
@@ -562,6 +577,7 @@ const Admin = (() => {
     try {
       const v = siteData.vehicles.find(x => x.id === id);
       const title = v?.title || id;
+      if (!confirm('Opravdu smazat „' + title + '"? Tuto akci nelze vrátit zpět.')) return;
       siteData.vehicles = siteData.vehicles.filter(x => x.id !== id);
       if (await saveSiteData('Smazáno: ' + title)) {
         renderVehicleList();
@@ -646,9 +662,14 @@ const Admin = (() => {
     if (pwd !== cfm) { toast('Hesla se neshodují', 'error'); return; }
     if (pwd.length < 3) { toast('Heslo musí mít alespoň 3 znaky', 'error'); return; }
     if (await hashPassword(cur) !== await getStoredHash()) { toast('Současné heslo je nesprávné', 'error'); return; }
-    localStorage.setItem('jt_admin_password', await hashPassword(pwd));
-    document.getElementById('password-form').reset();
-    toast('Heslo změněno', 'success');
+    const newHash = await hashPassword(pwd);
+    // Save to site-data.json so password syncs across all devices
+    siteData.adminPasswordHash = newHash;
+    if (await saveSiteData('Změna hesla')) {
+      localStorage.removeItem('jt_admin_password');
+      document.getElementById('password-form').reset();
+      toast('Heslo změněno (platí na všech zařízeních)', 'success');
+    }
   }
 
   /* ===== EXPORT / IMPORT ===== */
@@ -725,6 +746,8 @@ const Admin = (() => {
     siteData = await fetchSiteData();
     showLoading(false);
     renderAll();
+    // Migrate password from localStorage to cloud (one-time)
+    migratePasswordToCloud();
   }
 
   async function init() {
@@ -732,7 +755,10 @@ const Admin = (() => {
       await enterAdmin();
     }
 
-    // Login
+    // Login — pre-fetch site data so password hash is available for verification
+    if (!siteData) {
+      siteData = await fetchSiteData();
+    }
     document.getElementById('login-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       if (await login(document.getElementById('login-password').value)) {
