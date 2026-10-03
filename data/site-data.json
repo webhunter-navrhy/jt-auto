@@ -12,9 +12,10 @@
       "fuel": "Benzín",
       "transmission": "Manuál",
       "vin": "JMZGL697601548386",
-      "status": "Skladem",
+      "status": "Prodáno",
       "image": "assets/images/admin/v1791025013016_main.jpg",
-      "gallery": []
+      "gallery": [],
+      "soldDate": "3. 10. 2026"
     },
     {
       "id": "v1791024714920",
