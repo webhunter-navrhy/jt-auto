@@ -1,40 +1,6 @@
 {
   "vehicles": [
     {
-      "id": "v1791025013016",
-      "title": "MAZDA 6 2.0i SPORTS-LINE",
-      "desc": "FULL LED, NAVI, TAŽNÉ,KEYLESS",
-      "description": "",
-      "price": "379.000,-Kč",
-      "year": 2018,
-      "km": "128000 km",
-      "power": "121",
-      "fuel": "Benzín",
-      "transmission": "Manuál",
-      "vin": "JMZGL697601548386",
-      "status": "Prodáno",
-      "image": "assets/images/admin/v1791025013016_main.jpg",
-      "gallery": [],
-      "soldDate": "3. 10. 2026"
-    },
-    {
-      "id": "v1791024714920",
-      "title": "MAZDA 6 2.0i SKYACTIVE SPORTS-LINE",
-      "desc": "HEAD-UP DISPLAY, FULL LED, TAŽNÉ",
-      "description": "",
-      "price": "369.000,-Kč",
-      "year": 2016,
-      "km": "132000 km",
-      "power": "121 kW",
-      "fuel": "Benzín",
-      "transmission": "Manuál",
-      "vin": "JMZGJ697671353827",
-      "status": "Prodáno",
-      "image": "assets/images/admin/v1791024714920_main.jpg",
-      "gallery": [],
-      "soldDate": "3. 10. 2026"
-    },
-    {
       "id": "v1790681515889",
       "title": "MAZDA CX-5 2.0i AWD NAKAMA",
       "desc": "Full led , kamera, awd, 19\" alu kola",
