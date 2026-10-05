@@ -290,7 +290,7 @@
       "fuel": "Benzín",
       "transmission": "Manuál",
       "vin": "JMZKFGW7600633720",
-      "status": "Skladem",
+      "status": "Prodáno",
       "image": "assets/images/admin/v1788681033788_main.jpg",
       "gallery": [
         "assets/images/admin/v1788681033788_g0.jpg",
@@ -384,7 +384,8 @@
         "assets/images/admin/v1788681033788_g88.jpg",
         "assets/images/admin/v1788681033788_g89.jpg",
         "assets/images/admin/v1788681033788_g90.jpg"
-      ]
+      ],
+      "soldDate": "5. 10. 2026"
     },
     {
       "id": "v1788525645045",
@@ -486,7 +487,7 @@
       "fuel": "Benzín",
       "transmission": "Manuál",
       "vin": "JMZGL697601800155",
-      "status": "Skladem",
+      "status": "Prodáno",
       "image": "assets/images/admin/v1788525296236_main.jpg",
       "gallery": [
         "assets/images/admin/v1788525296236_g0.jpg",
@@ -572,7 +573,8 @@
         "assets/images/admin/v1788525296236_g80.jpg",
         "assets/images/admin/v1788525296236_g81.jpg",
         "assets/images/admin/v1788525296236_g82.jpg"
-      ]
+      ],
+      "soldDate": "5. 10. 2026"
     },
     {
       "id": "v790",
@@ -586,7 +588,7 @@
       "fuel": "Benzín",
       "transmission": "Manuál",
       "vin": "JMZKF6W7600665852",
-      "status": "Skladem",
+      "status": "Prodáno",
       "image": "assets/images/vehicle-790-mazda-cx5.jpg",
       "gallery": [
         "assets/images/admin/v790_g0.jpg",
@@ -675,7 +677,8 @@
         "assets/images/admin/v790_g83.jpg",
         "assets/images/admin/v790_g84.jpg",
         "assets/images/admin/v790_g85.jpg"
-      ]
+      ],
+      "soldDate": "5. 10. 2026"
     },
     {
       "id": "v785",
