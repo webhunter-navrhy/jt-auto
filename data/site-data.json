@@ -12,7 +12,7 @@
       "fuel": "Benzín",
       "transmission": "Manuál",
       "vin": "JMZGJ697661311659",
-      "status": "Skladem",
+      "status": "Prodáno",
       "image": "assets/images/admin/v1791973319775_main.jpg",
       "gallery": [
         "assets/images/admin/v1791973319775_g0.jpg",
@@ -91,7 +91,8 @@
         "assets/images/admin/v1791973319775_g73.jpg",
         "assets/images/admin/v1791973319775_g74.jpg",
         "assets/images/admin/v1791973319775_g75.jpg"
-      ]
+      ],
+      "soldDate": "25. 10. 2026"
     },
     {
       "id": "v1791809623396",
