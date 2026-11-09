@@ -1,6 +1,22 @@
 {
   "vehicles": [
     {
+      "id": "v1794244177794",
+      "title": "MAZDA MX-30 AD´VANTAGE",
+      "desc": "Full led, kamera, navigace",
+      "description": "Automatická klimatizace, esp, parkovací senzory vpředu, parkovací senzory vzadu, parkovací kamera, adaptivní tempomat, full led světlomety, led denní svícení, automatická dálková světla, vyhřívaná sedadla, Android Auto / Appel carplay, dešťový senzor, bluethoot handsfree, asistent rozjezdu v kopci, i-Activsense....\n\nDovezeno z Německa po 1. majiteli.  První registrace 06/2021. Nehavarováno, nelakováno, v perfektním stavu\n\nPravidelně servisováno pouze v autorizovaném servisu Mazda .\n\nPoslední servis 24.09.2026 v 72293 km .",
+      "price": "389.000,-",
+      "year": 2021,
+      "km": "73800",
+      "power": "107",
+      "fuel": "Elektro",
+      "transmission": "Automat",
+      "vin": "JMZDR1WBJ00110350",
+      "status": "Skladem",
+      "image": "assets/images/admin/v1794244177794_main.jpg",
+      "gallery": []
+    },
+    {
       "id": "v1793611816695",
       "title": "MAZDA 6 2.0i SKYACTIVE REVOLUTION",
       "desc": "LED MATRIX, TAŽNÉ, HEAD UP BOSE",
