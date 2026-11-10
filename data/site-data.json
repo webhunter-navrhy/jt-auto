@@ -12,9 +12,10 @@
       "fuel": "Elektro",
       "transmission": "Automat",
       "vin": "JMZDR1WBJ00110350",
-      "status": "Skladem",
+      "status": "Prodáno",
       "image": "assets/images/admin/v1794244177794_main.jpg",
-      "gallery": []
+      "gallery": [],
+      "soldDate": "10. 11. 2026"
     },
     {
       "id": "v1793611816695",
